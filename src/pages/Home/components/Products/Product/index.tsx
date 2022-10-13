@@ -25,10 +25,16 @@ export function Product({ coffeItem }: ProductProps) {
 
     const onSubmitForm = ({ coffeQuantity }: DataForm) => {
         let newCoffeCart = coffeCart.findIndex(item => item.id === coffeItem.id )
+        if(newCoffeCart > -1){ // se for maior que -1 é porque existe e eu quero modificar
+            let newCart = coffeCart.map(item => {
+                if(item.id === coffeItem.id){
+                    return {...item, quantity: item.quantity! + coffeQuantity }
+                }
 
-        if(newCoffeCart > -1){
-            
-        } else {
+                return item
+            })
+            addNewCoffeInCart(newCart)
+        } else { // se não quero apenas adicionar um item ao array
             addNewCoffeInCart([...coffeCart, {
                 id: coffeItem.id,
                 image: coffeItem.image,
