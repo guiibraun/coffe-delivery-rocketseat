@@ -42,13 +42,12 @@ export function Checkout() {
                                     <p>Informe o endereço onde deseja receber seu pedido</p>
                                 </div>
                             </C.DeliveryInfo>
-
+.
                             <C.FormPrimary>
                                 <PrincipalForm />
                             </C.FormPrimary>
 
-                        </C.CardContainer>
-                        <C.CardContainer>
+
 
                         </C.CardContainer>
                     </div>
@@ -58,8 +57,14 @@ export function Checkout() {
                             <button type="submit">Enviar</button>
                         </C.CardContainer>
                     </div>
+                    <div>
+                        <C.CardContainer>
+                            teste
+                        </C.CardContainer>
 
+                    </div>
                 </C.CheckoutContainer>
+
             </C.FormCheckout >
         </FormProvider>
     )

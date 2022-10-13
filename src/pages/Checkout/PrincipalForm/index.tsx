@@ -11,15 +11,16 @@ export function PrincipalForm(){
             <C.InputText type="text" placeholder='CEP' {...register('cep', { valueAsNumber: true })} />
          </C.Cep>
 
-         <C.InputText type="text" placeholder='RUA' {...register('street')} />
+         <C.InputText type="text" placeholder='Rua' {...register('street')} />
 
          <C.AdressTwoColumns>
-            <C.InputText type="text" placeholder='NÚMERO' {...register('number')} />
-            <C.InputText type="text" placeholder='BAIRRO' {...register('neighborhood')} />
+            <C.InputText type="text" placeholder='Número' {...register('number')} />
+            <C.InputText type="text" placeholder='Complemento' {...register('complement')} />
          </C.AdressTwoColumns>
 
          <C.AdressThreeColumns>
-            <C.InputText type="text" placeholder='CIDADE' {...register('city')} />
+            <C.InputText type="text" placeholder='Bairro' {...register('neighborhood')} />
+            <C.InputText type="text" placeholder='Cidade' {...register('city')} />
             <C.InputText type="text" placeholder='UF' {...register('state')} />
          </C.AdressThreeColumns>
       </>

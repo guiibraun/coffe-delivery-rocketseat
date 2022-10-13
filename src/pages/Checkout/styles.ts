@@ -4,10 +4,10 @@ export const CheckoutContainer = styled.div`
    display: grid;
    grid-template-columns: 1fr 448px;
    gap: 2rem;
+   
    & > div {
       display: flex;
       flex-direction: column;
-      row-gap: 2rem;
    }
 
    h2 {
@@ -47,7 +47,12 @@ export const DeliveryInfo = styled.div`
 
 `
 
-export const FormPrimary = styled.div``
+export const FormPrimary = styled.div`
+   display: grid;
+   grid-template-columns: 1fr;
+   gap: 1rem;
+   margin-top: 1.5rem;
+`
 
 export const FormCheckout = styled.form`
    margin-top: 1.5rem;
