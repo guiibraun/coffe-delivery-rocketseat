@@ -1,18 +1,41 @@
-import { createContext, ReactNode, useReducer } from "react"
+import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
 
 interface CoffeContextProviderProps {
     children: ReactNode
 }
 
-interface CarItemsContextTypes {
-    
+interface CartItemsState {
+    id?: string,
+    image?: string,
+    name?: string,
+    quantity?: number,
+    price?: number
 }
+
+interface CarItemsContextTypes {
+    coffeCart: CartItemsState[],
+    addNewCoffeInCart: (newCart: CartItemsState[]) => void
+}
+
+
 
 export const CartItemsContext = createContext({} as CarItemsContextTypes)
 
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
+    const [coffeCart, setCoffeCart] = useState<CartItemsState[]>([])
+
+    useEffect(() => {
+        if(coffeCart.length > 0){
+            console.log(coffeCart)
+        }
+    }, [coffeCart])
+
+    function addNewCoffeInCart(newCart: CartItemsState[]){
+        setCoffeCart(newCart)    
+    }
+
     return (
-        <CartItemsContext.Provider value={1}>
+        <CartItemsContext.Provider value={{ coffeCart, addNewCoffeInCart }}>
             {children}
         </CartItemsContext.Provider>
     )
