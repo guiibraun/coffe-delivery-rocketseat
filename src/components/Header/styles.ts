@@ -28,7 +28,7 @@ export const CityAndState = styled.div`
     align-items: center;
     flex: 1;
     border-radius: 8px;
-    gap: .3rem
+    gap: .3rem;
 
     span {
         font-size: .875rem;
@@ -50,5 +50,25 @@ export const ShoppingCartContainer = styled.div`
     width: 2.375rem;
     height: 2.375rem;
     border-radius: 8px;
+
+    position: relative;
+
+    span {
+        color: ${props => props.theme.white};
+        background-color: ${props => props.theme['yellow-dark']};
+        height: 1.25rem;
+        width: 1.25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+
+        font-size: 0.75rem;
+        font-weight: 700;
+
+        position: absolute;
+        top: -10px;
+        right: -10px;
+    }
 `
 

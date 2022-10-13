@@ -17,10 +17,17 @@ export const MainContainer = styled.div`
     img {
         max-width: 100%;
         width: auto;
+        height: auto;
     }
 
     @media (max-width: 767px) {
         padding: 2rem 0;
+    }
+
+    @media (max-width: 1024px){
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 `
 
@@ -72,6 +79,11 @@ export const GridItems = styled.div`
         align-items: center;
         gap: .75rem;
         line-height: 1.3;
+    }
+
+    
+    @media (max-width: 767px){
+            grid-template-columns: 1fr;
     }
 `
 const ICONS_COLORS = {

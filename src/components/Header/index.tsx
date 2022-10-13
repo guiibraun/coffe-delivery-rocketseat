@@ -20,8 +20,11 @@ export function Header(){
                 </C.CityAndState>
                 <Link to="/checkout">
                     <C.ShoppingCartContainer>
+                        {itemsCartQuantity > 0 && 
+                            <span>{itemsCartQuantity}</span>
+                        }
                         <ShoppingCart size={22} weight="fill" />
-                        {itemsCartQuantity}
+
                     </C.ShoppingCartContainer>
                 </Link>
             </C.CartAndCityContainer>

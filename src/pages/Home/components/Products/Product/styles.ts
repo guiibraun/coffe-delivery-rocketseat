@@ -57,4 +57,5 @@ export const Types = styled.div`
         font-size: .675rem;
         font-weight: bold;
     }
+
 `
