@@ -40,3 +40,21 @@ export const FooterGrid = styled.div`
     }
     
 `
+
+export const Types = styled.div`
+    display: flex;
+    gap: .25rem;
+    margin-top: .75rem;
+
+    span {
+        background-color: ${props => props.theme['yellow-light']};
+        color: ${props => props.theme['yellow-dark']};
+        text-transform: uppercase;
+
+        padding: .25rem .5rem ;
+
+        border-radius: 100px;
+        font-size: .675rem;
+        font-weight: bold;
+    }
+`

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { ProductsType } from "../../../../../@types/products"
 import { CartItemsContext } from "../../../../../contexts/CoffeContexts"
 import * as C from './styles'
+import { v4 as uuid } from 'uuid'
 
 interface ProductProps {
     coffeItem: ProductsType
@@ -13,8 +14,8 @@ interface DataForm {
     coffeQuantity: any
 }
 
-export function Product({coffeItem}: ProductProps){
-    const {addNewCoffeInCart, coffeCart} = useContext(CartItemsContext)
+export function Product({ coffeItem }: ProductProps) {
+    const { addNewCoffeInCart, coffeCart } = useContext(CartItemsContext)
 
     const { register, handleSubmit } = useForm({
         defaultValues: {
@@ -35,11 +36,11 @@ export function Product({coffeItem}: ProductProps){
     return (
         <div key={coffeItem.id}>
             <img src={coffeItem.image} alt='' />
-            {/* <C.Types>
-                            {coffe.type.map(types => (
-                                <span key={`${new Date().getMilliseconds()}`}>{types}</span>
-                            ))}
-                        </C.Types> */}
+            <C.Types>
+                {coffeItem.type.map(types => (
+                    <span key={uuid()}>{types}</span>
+                ))}
+            </C.Types>
             <h2>{coffeItem.name}</h2>
             <p>{coffeItem.description}</p>
 
