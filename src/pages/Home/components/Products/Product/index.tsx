@@ -17,7 +17,7 @@ interface DataForm {
 export function Product({ coffeItem }: ProductProps) {
     const { addNewCoffeInCart, coffeCart } = useContext(CartItemsContext)
 
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, reset } = useForm({
         defaultValues: {
             coffeQuantity: 0
         }
@@ -43,6 +43,8 @@ export function Product({ coffeItem }: ProductProps) {
                 price: coffeItem.price
             }])
         }
+
+        reset()
     }
 
     return (
