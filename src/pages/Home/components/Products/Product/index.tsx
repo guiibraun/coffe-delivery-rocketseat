@@ -2,7 +2,7 @@ import { ShoppingCart } from "phosphor-react"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import { ProductsType } from "../../../../../@types/products"
-import { CartItemsContext } from "../../../../../contexts/CoffeContexts"
+import { CoffeContext } from "../../../../../contexts/CoffeContext"
 import * as C from './styles'
 import { v4 as uuid } from 'uuid'
 
@@ -15,7 +15,7 @@ interface DataForm {
 }
 
 export function Product({ coffeItem }: ProductProps) {
-    const { addNewCoffeInCart, coffeCart } = useContext(CartItemsContext)
+    const { addNewCoffeInCart, coffeCart } = useContext(CoffeContext)
 
     const { register, handleSubmit, reset } = useForm({
         defaultValues: {

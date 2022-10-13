@@ -6,6 +6,10 @@ export const HeaderContainer = styled.header`
     align-items: center;
     padding: 2rem 0;
     gap: 1rem;
+
+    a {
+        text-decoration: none;
+    }
 `
 
 export const CartAndCityContainer = styled.div`
