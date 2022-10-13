@@ -25,9 +25,7 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
     const [coffeCart, setCoffeCart] = useState<CartItemsState[]>([])
 
     useEffect(() => {
-        if(coffeCart.length > 0){
-            console.log(coffeCart)
-        }
+        console.log(coffeCart)
     }, [coffeCart])
 
     function addNewCoffeInCart(newCart: CartItemsState[]){
