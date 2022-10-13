@@ -25,8 +25,9 @@ export function Product({ coffeItem }: ProductProps) {
 
     const onSubmitForm = ({ coffeQuantity }: DataForm) => {
         let newCoffeCart = coffeCart.findIndex(item => item.id === coffeItem.id )
-        console.log(newCoffeCart)
+
         if(newCoffeCart > -1){
+            
         } else {
             addNewCoffeInCart([...coffeCart, {
                 id: coffeItem.id,

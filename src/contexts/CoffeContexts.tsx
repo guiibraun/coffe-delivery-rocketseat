@@ -17,8 +17,6 @@ interface CarItemsContextTypes {
     addNewCoffeInCart: (newCart: CartItemsState[]) => void
 }
 
-
-
 export const CartItemsContext = createContext({} as CarItemsContextTypes)
 
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
@@ -28,8 +26,8 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
         console.log(coffeCart)
     }, [coffeCart])
 
-    function addNewCoffeInCart(newCart: CartItemsState[]){
-        setCoffeCart(newCart)    
+    function addNewCoffeInCart(newCart: CartItemsState[]) {
+        setCoffeCart(newCart)
     }
 
     return (
