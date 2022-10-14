@@ -15,7 +15,7 @@ interface DataForm {
 }
 
 export function Product({ coffeItem }: ProductProps) {
-    const { addNewCoffeInCart, coffeCart } = useContext(CoffeContext)
+    const { addNewCoffeInCart } = useContext(CoffeContext)
 
     const { register, handleSubmit, reset } = useForm({
         defaultValues: {
@@ -24,35 +24,34 @@ export function Product({ coffeItem }: ProductProps) {
     })
 
     const onSubmitForm = ({ coffeQuantity }: DataForm) => {
-        let newCoffeCart = coffeCart.findIndex(item => item.id === coffeItem.id)
-        if(coffeQuantity > 0){
-            if (newCoffeCart > -1) { // se for maior que -1 é porque existe e eu quero modificar
-                let newCart = coffeCart.map(item => {
-                    if (item.id === coffeItem.id) {
-                        return { ...item, quantity: item.quantity! + coffeQuantity }
-                    }
-
-                    return item
-                })
-                addNewCoffeInCart(newCart)
-            } else { // se não quero apenas adicionar um item ao array
-                addNewCoffeInCart([...coffeCart, {
-                    id: coffeItem.id,
-                    image: coffeItem.image,
-                    name: coffeItem.name,
-                    quantity: coffeQuantity,
-                    price: coffeItem.price
-                }])
-            } 
-            /*let newCart = {
-                id: coffeItem.id,
-                name: coffeItem.name,
-                image: coffeItem.image,
-                quantity: coffeQuantity,
-                price: coffeItem.price
-            }*/
+        /*         let newCoffeCart = coffeCart.findIndex(item => item.id === coffeItem.id)
+                if(coffeQuantity > 0){
+                    if (newCoffeCart > -1) { // se for maior que -1 é porque existe e eu quero modificar
+                        let newCart = coffeCart.map(item => {
+                            if (item.id === coffeItem.id) {
+                                return { ...item, quantity: item.quantity! + coffeQuantity }
+                            }
+        
+                            return item
+                        })
+                        addNewCoffeInCart(newCart)
+                    } else { // se não quero apenas adicionar um item ao array
+                        addNewCoffeInCart([...coffeCart, {
+                            id: coffeItem.id,
+                            image: coffeItem.image,
+                            name: coffeItem.name,
+                            quantity: coffeQuantity,
+                            price: coffeItem.price
+                        }])
+                    }  */
+        let newCart = {
+            id: coffeItem.id,
+            name: coffeItem.name,
+            image: coffeItem.image,
+            quantity: coffeQuantity,
+            price: coffeItem.price
         }
-
+        addNewCoffeInCart(newCart)
         reset()
     }
 

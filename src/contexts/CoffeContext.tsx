@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
-import { ActionType, coffeReducer } from "../reducers/coffeReducer"
 
 interface CoffeContextProviderProps {
     children: ReactNode
@@ -16,70 +15,77 @@ export interface CartItemsState {
 interface CarItemsContextTypes {
     coffeCart: CartItemsState[],
     itemsCartQuantity: number,
-    addNewCoffeInCart: (newCart: CartItemsState[]) => void
+    addNewCoffeInCart: (newCart: CartItemsState) => void
 }
 
-export interface CoffeStateType {
+interface CoffeStateType {
     coffeCart: CartItemsState[],
     itemsCartQuantity: number,
 }
 
 enum ActionType {
+    MODIFY_ITEM_IN_CART = 'MODIFY_ITEM_IN_CART',
+    ADD_ITEM_IN_CART = 'ADD_ITEM_IN_CART',
     CHANGE_CART_QUANTITY = 'CHANGE_CART_QUANTITY',
-    ADD_ITEM_IN_CART = 'ADD_ITEM_IN_CART'
 }
 
-const initialState = {
-    coffeCart: [],
-    itemsCartQuantity: 0,
-}
-
-function coffeReducer(state: CoffeStateType, action: any) {
+function reducer(state: CoffeStateType, action: any) {
     switch (action.type) {
         case ActionType.CHANGE_CART_QUANTITY:
-            return { ...state, itemsCartQuantity: action.payload.newItemsQuantity }
+            return { ...state, itemsCartQuantity: action.payload }
             break
         case ActionType.ADD_ITEM_IN_CART:
+            return { ...state, coffeCart: [...state.coffeCart, action.payload] }
+            break
+        case ActionType.MODIFY_ITEM_IN_CART: {
+            let newItem = action.payload
             return {
-                ...state,
-                coffeCart: [...state.coffeCart, action.payload.newCart]
+                ...state, coffeCart:
+                    state.coffeCart.map(item => {
+                        if (item.id === newItem.id) {
+                            return { ...item, quantity: item.quantity + newItem.quantity }
+                        }
+                        return item
+                    })
             }
+        }
+            break
         default:
             return state
     }
 }
 
+const initialState: CoffeStateType = {
+    coffeCart: [],
+    itemsCartQuantity: 0,
+}
+
 export const CoffeContext = createContext({} as CarItemsContextTypes)
 
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
-    //const [coffeCart, setCoffeCart] = useState<CartItemsState[]>([])
+    const [state, dispatch] = useReducer(reducer, initialState)
 
-    const [state, dispatch] = useReducer(coffeReducer, initialState)
-
-
-    const {itemsCartQuantity, coffeCart} = state
+    const { coffeCart, itemsCartQuantity } = state
 
     useEffect(() => {
-        if(coffeCart.length > -1){
-            newCartItemsQuantity()
-        }
+        console.log(coffeCart)
     }, [coffeCart])
 
-    function addNewCoffeInCart(newCart: CartItemsState[]) {
-        dispatch({
-            type: ActionType.CHANGE_CART_QUANTITY,
-            payload: newCart
-        })
-    }
-
-    function newCartItemsQuantity(){
-        let newItemsQuantity = coffeCart.reduce((acc, item) => {
-            return acc + Number(item.quantity)
-        }, 0)
-        dispatch({
-            type: ActionType.CHANGE_CART_QUANTITY,
-            payload: newItemsQuantity
-        })
+    function addNewCoffeInCart(newCart: CartItemsState) {
+        if (newCart.quantity > 0) {
+            let findItem = coffeCart.findIndex(item => item.id === newCart.id)
+            if (findItem > -1) {
+                dispatch({
+                    type: ActionType.MODIFY_ITEM_IN_CART,
+                    payload: newCart
+                })
+            } else {
+                dispatch({
+                    type: ActionType.ADD_ITEM_IN_CART,
+                    payload: newCart
+                })
+            }
+        }
     }
 
     return (
