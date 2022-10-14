@@ -20,20 +20,42 @@ interface CarItemsContextTypes {
 }
 
 export interface CoffeStateType {
+    coffeCart: CartItemsState[],
     itemsCartQuantity: number,
-    coffeCart: CartItemsState[]
 }
 
+enum ActionType {
+    CHANGE_CART_QUANTITY = 'CHANGE_CART_QUANTITY',
+    ADD_ITEM_IN_CART = 'ADD_ITEM_IN_CART'
+}
+
+const initialState = {
+    coffeCart: [],
+    itemsCartQuantity: 0,
+}
+
+function coffeReducer(state: CoffeStateType, action: any) {
+    switch (action.type) {
+        case ActionType.CHANGE_CART_QUANTITY:
+            return { ...state, itemsCartQuantity: action.payload.newItemsQuantity }
+            break
+        case ActionType.ADD_ITEM_IN_CART:
+            return {
+                ...state,
+                coffeCart: [...state.coffeCart, action.payload.newCart]
+            }
+        default:
+            return state
+    }
+}
 
 export const CoffeContext = createContext({} as CarItemsContextTypes)
 
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
-    const [state, dispatch] = useReducer(coffeReducer, {
-        itemsCartQuantity: 0,
-        coffeCart: []
-        
-    })
     //const [coffeCart, setCoffeCart] = useState<CartItemsState[]>([])
+
+    const [state, dispatch] = useReducer(coffeReducer, initialState)
+
 
     const {itemsCartQuantity, coffeCart} = state
 
