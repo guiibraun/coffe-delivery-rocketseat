@@ -26,7 +26,9 @@ export function CoffeItems() {
                     <C.EditItems>
                         <h5>{item.name}</h5>
                         <div>
+                            <button>DIMINUIR</button>
                             <input type="number" {...register('quantity')} />
+                            <button onClick={() => }>ADICIONAR</button>
                             <button title="Remover" onClick={() => handleRemove(item.id)} type="button"><Trash />Remover</button>
                         </div>
                     </C.EditItems>
