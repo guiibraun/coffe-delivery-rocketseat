@@ -43,7 +43,14 @@ export function Product({ coffeItem }: ProductProps) {
                     quantity: coffeQuantity,
                     price: coffeItem.price
                 }])
-            }
+            } 
+            /*let newCart = {
+                id: coffeItem.id,
+                name: coffeItem.name,
+                image: coffeItem.image,
+                quantity: coffeQuantity,
+                price: coffeItem.price
+            }*/
         }
 
         reset()
