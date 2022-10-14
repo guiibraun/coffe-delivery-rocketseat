@@ -1,6 +1,4 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
-import { ActionType, coffeReducer } from "../reducers/coffeReducer"
-import { addItemCartAction, changeItemCartAction, removeItemCartFunctionAction } from "../reducers/CoffeActions"
 
 interface CoffeContextProviderProps {
     children: ReactNode
@@ -21,20 +19,11 @@ interface CarItemsContextTypes {
     removeFromCart: (id: string) => void
 }
 
-export interface CoffeStateType {
-    coffeCart: CartItemsState[],
-    itemsCartQuantity: number,
-}
-
 export const CoffeContext = createContext({} as CarItemsContextTypes)
 
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
-    const [state, dispatch] = useReducer(coffeReducer, {
-        coffeCart: [],
-        itemsCartQuantity: 0,
-    })
-
-    const { coffeCart, itemsCartQuantity } = state
+    const [coffeCart, setCoffeCart] = useState<CartItemsState[]>([])
+    const [itemsCartQuantity, setItemsCartQuantity] = useState(0)
 
     useEffect(() => {
         changeCartTotalCount()
@@ -42,25 +31,31 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
 
     function addNewCoffeInCart(newCart: CartItemsState) {
         if (newCart.quantity > 0) {
-            let findItem = [...coffeCart].findIndex(item => item.id === newCart.id)
+            let findItem = coffeCart.findIndex(item => item.id === newCart.id)
             if (findItem > -1) {
-                dispatch(changeItemCartAction(newCart))
+                let modifyCart = coffeCart.map(item => {
+                    if (item.id === newCart.id) {
+                        return { ...item, quantity: item.quantity + newCart.quantity }
+                    }
+                    return item
+                })
+                setCoffeCart(modifyCart)
             } else {
-                dispatch(addItemCartAction(newCart))
+                setCoffeCart((previousState) => [...previousState, newCart])
             }
         }
     }
 
     function changeCartTotalCount() {
-        let newCartTotalCount = [...coffeCart].reduce((acc, item) => {
+        let newCartTotalCount = coffeCart.reduce((acc, item) => {
             return acc + item.quantity
         }, 0)
-        dispatch({ type: ActionType.CHANGE_CART_QUANTITY, payload: newCartTotalCount })
+        setItemsCartQuantity(newCartTotalCount)
     }
 
     function removeFromCart(id: string) {
         let cartItemsWhitoutADeletedItem = [...coffeCart].filter((item) => item.id !== id)
-        dispatch(removeItemCartFunctionAction(cartItemsWhitoutADeletedItem))
+        setCoffeCart(cartItemsWhitoutADeletedItem)
     }
 
     return (
