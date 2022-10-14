@@ -23,6 +23,7 @@ export function PrincipalForm(){
             <C.InputText type="text" placeholder='Cidade' {...register('city')} />
             <C.InputText type="text" placeholder='UF' {...register('state')} />
          </C.AdressThreeColumns>
+
       </>
    )
 }

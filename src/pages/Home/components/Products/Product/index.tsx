@@ -1,4 +1,4 @@
-import { ShoppingCart } from "phosphor-react"
+import { Minus, Plus, ShoppingCart } from "phosphor-react"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import { ProductsType } from "../../../../../@types/products"
@@ -53,7 +53,7 @@ export function Product({ coffeItem }: ProductProps) {
                 <form onSubmit={handleSubmit(onSubmitForm)}>
                     <input
                         type="number"
-                        {...register(`coffeQuantity`, { valueAsNumber: true })}
+                        {...register("coffeQuantity", { valueAsNumber: true })}
                         min={0}
                     />
                     <button type="submit" title="Enviar para o carrinho">

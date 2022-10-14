@@ -59,3 +59,6 @@ export const Types = styled.div`
     }
 
 `
+
+export const ChangeQuantityButton = styled.button`
+`

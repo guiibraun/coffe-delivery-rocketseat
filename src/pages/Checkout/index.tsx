@@ -4,7 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import * as C from './styles'
 import { MapPinLine } from 'phosphor-react'
-import { PrincipalForm } from './PrincipalForm'
+import { PrincipalForm } from './components/PrincipalForm'
+import { CoffeItems } from './components/CoffeItems'
 
 type DataProps = zod.infer<typeof checkoutFormValidationSchema>
 
@@ -14,7 +15,8 @@ const checkoutFormValidationSchema = zod.object({
     number: zod.string(),
     neighborhood: zod.string(),
     city: zod.string(),
-    state: zod.string()
+    state: zod.string(),
+    quantity: zod.string()
 })
 
 export function Checkout() {
@@ -22,10 +24,11 @@ export function Checkout() {
         resolver: zodResolver(checkoutFormValidationSchema)
     })
 
-    const {register, handleSubmit, reset} = newCheckoutForm
+    const { register, handleSubmit, reset, control } = newCheckoutForm
 
     function onCheckoutSubmit(data: DataProps) {
         console.log(data)
+        reset()
     }
 
     return (
@@ -47,14 +50,12 @@ export function Checkout() {
                                 <PrincipalForm />
                             </C.FormPrimary>
 
-
-
                         </C.CardContainer>
                     </div>
                     <div>
                         <h2>Cafés selecionados</h2>
                         <C.CardContainer>
-                            <button type="submit">Enviar</button>
+                                <CoffeItems />
                         </C.CardContainer>
                     </div>
                     <div>

@@ -4,6 +4,7 @@ export enum ActionType {
     MODIFY_ITEM_IN_CART = 'MODIFY_ITEM_IN_CART',
     ADD_ITEM_IN_CART = 'ADD_ITEM_IN_CART',
     CHANGE_CART_QUANTITY = 'CHANGE_CART_QUANTITY',
+    REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 }
 
 export function coffeReducer(state: CoffeStateType, action: any) {
@@ -26,6 +27,9 @@ export function coffeReducer(state: CoffeStateType, action: any) {
                     })
             }
         }
+            break
+        case ActionType.REMOVE_CART_ITEM:
+            return {...state, coffeCart: action.payload}
             break
         default:
             return state
