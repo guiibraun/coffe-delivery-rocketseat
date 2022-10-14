@@ -1,44 +1,64 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
+import { ActionType, coffeReducer } from "../reducers/coffeReducer"
+import { addItemCartAction, changeItemCartAction } from "./CoffeActions"
 
 interface CoffeContextProviderProps {
     children: ReactNode
 }
 
-interface CartItemsState {
+export interface CartItemsState {
     id: string,
     image: string,
     name: string,
-    quantity: number | null,
+    quantity: number,
     price: number
 }
 
 interface CarItemsContextTypes {
     coffeCart: CartItemsState[],
     itemsCartQuantity: number,
-    addNewCoffeInCart: (newCart: CartItemsState[]) => void
+    addNewCoffeInCart: (newCart: CartItemsState) => void
+}
+
+export interface CoffeStateType {
+    coffeCart: CartItemsState[],
+    itemsCartQuantity: number,
+}
+
+const initialState: CoffeStateType = {
+    coffeCart: [],
+    itemsCartQuantity: 0,
 }
 
 export const CoffeContext = createContext({} as CarItemsContextTypes)
 
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
-    const [coffeCart, setCoffeCart] = useState<CartItemsState[]>([])
-    const [itemsCartQuantity, setItemsCartQuantity] = useState(0)
+    const [state, dispatch] = useReducer(coffeReducer, initialState)
+
+    const { coffeCart, itemsCartQuantity } = state
 
     useEffect(() => {
-        if(coffeCart.length > -1){
-            newCartItemsQuantity()
+        if(coffeCart.length > 0){
+            changeCartTotalCount()
         }
     }, [coffeCart])
 
-    function addNewCoffeInCart(newCart: CartItemsState[]) {
-        setCoffeCart(newCart)
+    function addNewCoffeInCart(newCart: CartItemsState) {
+        if (newCart.quantity > 0) {
+            let findItem = coffeCart.findIndex(item => item.id === newCart.id)
+            if (findItem > -1) {
+                dispatch(changeItemCartAction(newCart))
+            } else {
+                dispatch(addItemCartAction(newCart))
+            }
+        }
     }
 
-    function newCartItemsQuantity(){
-        let newItemsQuantity = coffeCart.reduce((acc, item) => {
-            return acc + Number(item.quantity)
+    function changeCartTotalCount(){
+        let newCartTotalCount: number = [...coffeCart].reduce((acc, item) => {
+            return acc + item.quantity
         }, 0)
-        setItemsCartQuantity(newItemsQuantity)
+        dispatch({type: ActionType.CHANGE_CART_QUANTITY, payload: newCartTotalCount})
     }
 
     return (
