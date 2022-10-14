@@ -1,4 +1,6 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
+import { coffeReducer } from "../reducers/coffeReducer"
+import { addItemCartAction, changeItemCartAction } from "./CoffeActions"
 
 interface CoffeContextProviderProps {
     children: ReactNode
@@ -18,41 +20,9 @@ interface CarItemsContextTypes {
     addNewCoffeInCart: (newCart: CartItemsState) => void
 }
 
-interface CoffeStateType {
+export interface CoffeStateType {
     coffeCart: CartItemsState[],
     itemsCartQuantity: number,
-}
-
-enum ActionType {
-    MODIFY_ITEM_IN_CART = 'MODIFY_ITEM_IN_CART',
-    ADD_ITEM_IN_CART = 'ADD_ITEM_IN_CART',
-    CHANGE_CART_QUANTITY = 'CHANGE_CART_QUANTITY',
-}
-
-function reducer(state: CoffeStateType, action: any) {
-    switch (action.type) {
-        case ActionType.CHANGE_CART_QUANTITY:
-            return { ...state, itemsCartQuantity: action.payload }
-            break
-        case ActionType.ADD_ITEM_IN_CART:
-            return { ...state, coffeCart: [...state.coffeCart, action.payload] }
-            break
-        case ActionType.MODIFY_ITEM_IN_CART: {
-            let newItem = action.payload
-            return {
-                ...state, coffeCart:
-                    state.coffeCart.map(item => {
-                        if (item.id === newItem.id) {
-                            return { ...item, quantity: item.quantity + newItem.quantity }
-                        }
-                        return item
-                    })
-            }
-        }
-            break
-        default:
-            return state
-    }
 }
 
 const initialState: CoffeStateType = {
@@ -63,7 +33,7 @@ const initialState: CoffeStateType = {
 export const CoffeContext = createContext({} as CarItemsContextTypes)
 
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const [state, dispatch] = useReducer(coffeReducer, initialState)
 
     const { coffeCart, itemsCartQuantity } = state
 
@@ -75,17 +45,17 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
         if (newCart.quantity > 0) {
             let findItem = coffeCart.findIndex(item => item.id === newCart.id)
             if (findItem > -1) {
-                dispatch({
-                    type: ActionType.MODIFY_ITEM_IN_CART,
-                    payload: newCart
-                })
+                dispatch(changeItemCartAction(newCart))
             } else {
-                dispatch({
-                    type: ActionType.ADD_ITEM_IN_CART,
-                    payload: newCart
-                })
+                dispatch(addItemCartAction(newCart))
             }
         }
+    }
+
+    function changeCartTotalCount(){
+        let newCartTotalCount = coffeCart.reduce((acc, item) => {
+            return acc + item.quantity
+        }, 0) 
     }
 
     return (
