@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
-import { coffeReducer } from "../reducers/coffeReducer"
+import { ActionType, coffeReducer } from "../reducers/coffeReducer"
 import { addItemCartAction, changeItemCartAction } from "./CoffeActions"
 
 interface CoffeContextProviderProps {
@@ -38,7 +38,9 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
     const { coffeCart, itemsCartQuantity } = state
 
     useEffect(() => {
-        console.log(coffeCart)
+        if(coffeCart.length > 0){
+            changeCartTotalCount()
+        }
     }, [coffeCart])
 
     function addNewCoffeInCart(newCart: CartItemsState) {
@@ -53,9 +55,10 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
     }
 
     function changeCartTotalCount(){
-        let newCartTotalCount = coffeCart.reduce((acc, item) => {
+        let newCartTotalCount: number = [...coffeCart].reduce((acc, item) => {
             return acc + item.quantity
-        }, 0) 
+        }, 0)
+        dispatch({type: ActionType.CHANGE_CART_QUANTITY, payload: newCartTotalCount})
     }
 
     return (
