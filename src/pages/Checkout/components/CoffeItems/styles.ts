@@ -1,14 +1,11 @@
 import styled from 'styled-components'
 
 export const CoffeItemsCheckoutContainer = styled.div`
-    display: flex;
-    flex-direction: column;
+
     border-width: 1px 0;
     border-color: ${props => props.theme['base-button']};
     border-style: solid;
     padding: 1rem 0;
-
-    width: 100%;
 
     img {
         max-width: 4rem;
@@ -17,20 +14,17 @@ export const CoffeItemsCheckoutContainer = styled.div`
 
 export const InfoCoffeItems = styled.div`
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
     align-items: center;
+    max-width: 100%;
 
-    &>div{
-        display: flex;
-        flex-direction: column;
-
-        h5 {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 400;
-            font-size: 1rem;
-            color: ${props => props.theme['base-subtitle']}
-        }
+    h5 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
+        color: ${props => props.theme['base-subtitle']}
     }
+    
 `
 
 export const EditItems = styled.div`

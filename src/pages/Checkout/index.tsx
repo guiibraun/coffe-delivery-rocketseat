@@ -22,7 +22,7 @@ const checkoutFormValidationSchema = zod.object({
 })
 
 export function Checkout() {
-    const { coffeCart } = useContext(CoffeContext)
+    const { coffeCart, coffeItemPriceWithShipping, coffeItemPriceWithOutShipping, shipping } = useContext(CoffeContext)
     const newCheckoutForm = useForm<DataProps>({
         resolver: zodResolver(checkoutFormValidationSchema)
     })
@@ -61,6 +61,20 @@ export function Checkout() {
                             {coffeCart.map(item => (
                                 <CoffeItems key={item.id} item={item}/>
                             ))}
+                            <C.Prices>
+                                <C.BaseItensCheckout>
+                                    <div>Total de itens</div>
+                                    <div>R$ {coffeItemPriceWithOutShipping.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
+                                </C.BaseItensCheckout>
+                                <C.BaseItensCheckout>
+                                    <div>Entrega</div>
+                                    <div>R$ {shipping.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                                </C.BaseItensCheckout>
+                                <C.TotalItensPrice>
+                                    <div>Total</div>
+                                    <div>R$ {coffeItemPriceWithShipping.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
+                                </C.TotalItensPrice>
+                            </C.Prices>
                             <C.SubmitButton type="submit">Confirmar Pedido</C.SubmitButton>
                         </C.CardContainer>
                     </div>

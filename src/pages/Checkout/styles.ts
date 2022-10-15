@@ -13,6 +13,11 @@ export const CheckoutContainer = styled.div`
    h2 {
       font-family: 'Baloo 2', sans-serif;
    }
+
+   
+   @media (max-width: 767px){
+      grid-template-columns: 1fr;
+   }
 `
 
 export const CardContainer = styled.div`
@@ -64,10 +69,35 @@ export const SubmitButton = styled.button`
    background-color: ${props => props.theme['yellow']};
    border: 0;
    color: ${props => props.theme.white};
+
+   font-weight: bold;
+
    padding: 0.75rem .5rem;
    width: 100%;
    border-radius: 8px;
    text-transform: uppercase;
 
    cursor: pointer;
+`
+
+export const Prices = styled.div`
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+
+   font-size: 0.875rem;
+
+   margin: 1rem 0 1.1rem;
+
+   gap: 1rem;
+`
+
+export const BaseItensCheckout = styled.div`
+   display: flex;
+   justify-content: space-between;
+`
+
+export const TotalItensPrice = styled(BaseItensCheckout)`
+   font-weight: bold;
+   font-size: 1.25rem;
 `
