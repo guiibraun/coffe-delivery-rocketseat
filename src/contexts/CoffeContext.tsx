@@ -1,4 +1,3 @@
-import { id } from "date-fns/locale"
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
 
 interface CoffeContextProviderProps {
@@ -24,7 +23,6 @@ interface CarItemsContextTypes {
     removeFromCart: (id: string) => void
     decreaseItemQuantity: (item: CartItemsState) => void
     increaseItemQuantity: (item: CartItemsState) => void
-
 }
 
 export const CoffeContext = createContext({} as CarItemsContextTypes)

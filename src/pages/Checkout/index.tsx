@@ -8,6 +8,7 @@ import { PrincipalForm } from './components/PrincipalForm'
 import { CoffeItems } from './components/CoffeItems'
 import { useContext } from 'react'
 import { CoffeContext } from '../../contexts/CoffeContext'
+import { PaymentMethod } from './components/PaymentMethod'
 
 type DataProps = zod.infer<typeof checkoutFormValidationSchema>
 
@@ -80,7 +81,7 @@ export function Checkout() {
                     </div>
                     <div>
                         <C.CardContainer>
-                            teste
+                            <PaymentMethod />
                         </C.CardContainer>
 
                     </div>
