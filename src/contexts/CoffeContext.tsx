@@ -1,3 +1,4 @@
+import { id } from "date-fns/locale"
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
 
 interface CoffeContextProviderProps {
@@ -15,8 +16,11 @@ export interface CartItemsState {
 interface CarItemsContextTypes {
     coffeCart: CartItemsState[],
     itemsCartQuantity: number,
+    coffeItemCount: number,
     addNewCoffeInCart: (newCart: CartItemsState) => void
     removeFromCart: (id: string) => void
+    decreaseItemQuantity: (item: CartItemsState) => void
+    increaseItemQuantity: (item: CartItemsState) => void
 }
 
 export const CoffeContext = createContext({} as CarItemsContextTypes)
@@ -24,10 +28,11 @@ export const CoffeContext = createContext({} as CarItemsContextTypes)
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
     const [coffeCart, setCoffeCart] = useState<CartItemsState[]>([])
     const [itemsCartQuantity, setItemsCartQuantity] = useState(0)
+    const [coffeItemCount, setCoffeItemCount] = useState(0)
 
     useEffect(() => {
         changeCartTotalCount()
-    }, [coffeCart])
+    }, [coffeCart, coffeItemCount])
 
     function addNewCoffeInCart(newCart: CartItemsState) {
         if (newCart.quantity > 0) {
@@ -44,6 +49,7 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
                 setCoffeCart((previousState) => [...previousState, newCart])
             }
         }
+        setCoffeItemCount(newCart.quantity)
     }
 
     function changeCartTotalCount() {
@@ -58,8 +64,42 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
         setCoffeCart(cartItemsWhitoutADeletedItem)
     }
 
+    function decreaseItemQuantity( item: CartItemsState){
+       let decreaseCoffeCart = coffeCart.map(coffe => {
+            if (coffe.id === item.id && coffe.quantity > 0) {
+                return { ...coffe, quantity: item.quantity - 1 }
+            }
+            return coffe
+        })
+        setCoffeCart(previousCart => previousCart = decreaseCoffeCart)
+        item.quantity > 0 ? setCoffeItemCount((previousState) => previousState - 1) : setCoffeItemCount(0)
+        console.log(item)
+    }
+
+
+    function increaseItemQuantity(item: CartItemsState) {
+
+        let increaseCoffeCart = coffeCart.map(coffe => {
+            if(coffe.id === item.id){
+                return {...coffe, quantity: item.quantity + 1}
+            }
+            return coffe
+        })
+        setCoffeCart(previousCart => previousCart = increaseCoffeCart) 
+        setCoffeItemCount((previousState) => previousState + 1)
+        console.log(item)
+    }
+
     return (
-        <CoffeContext.Provider value={{ coffeCart, itemsCartQuantity, addNewCoffeInCart, removeFromCart }}>
+        <CoffeContext.Provider value={{ 
+            coffeCart, 
+            itemsCartQuantity, 
+            coffeItemCount, 
+            addNewCoffeInCart, 
+            removeFromCart, 
+            decreaseItemQuantity, 
+            increaseItemQuantity 
+        }}>
             {children}
         </CoffeContext.Provider>
     )

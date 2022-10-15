@@ -1,5 +1,5 @@
 import { Minus, Plus, ShoppingCart } from "phosphor-react"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { ProductsType } from "../../../../../@types/products"
 import { CoffeContext } from "../../../../../contexts/CoffeContext"
@@ -15,6 +15,7 @@ interface DataForm {
 }
 
 export function Product({ coffeItem }: ProductProps) {
+
     const { addNewCoffeInCart } = useContext(CoffeContext)
 
     const { register, handleSubmit, reset } = useForm({

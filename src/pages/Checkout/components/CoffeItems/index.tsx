@@ -1,40 +1,39 @@
 import { Minus, Plus, Trash } from 'phosphor-react'
-import { useContext, useEffect } from 'react'
-import { useFormContext, useFieldArray } from 'react-hook-form'
-import { CoffeContext } from '../../../../contexts/CoffeContext'
+import { useContext } from 'react'
+import { CartItemsState, CoffeContext } from '../../../../contexts/CoffeContext'
 import * as C from './styles'
 
-export function CoffeItems() {
-    const { coffeCart, removeFromCart } = useContext(CoffeContext)
-    const {register, watch, control} = useFormContext()
-    const {fields} = useFieldArray({
-        control,
-        name: 'checkout_items'
-    })
+interface ItemProps {
+    item: CartItemsState
+}
 
-    function handleRemove(id: string){
+export function CoffeItems({ item }: ItemProps) {
+    const { removeFromCart, decreaseItemQuantity, increaseItemQuantity } = useContext(CoffeContext)
+
+    function handleRemove(id: string) {
         removeFromCart(id)
     }
 
-    const isItemInCart = watch('quantity')
-
     return (
         <C.CoffeItemsCheckoutContainer>
-            {coffeCart.map(item =>
-                <C.InfoCoffeItems key={item.id}>
-                    <img src={item.image} alt='' />
-                    <C.EditItems>
+            <C.InfoCoffeItems key={`${item.id}+coffe_checkout`} >
+                <img src={item.image} alt='' />
+                <C.EditItems>
+                    <C.ItemInfo>
                         <h5>{item.name}</h5>
-                        <div>
-                            <button>DIMINUIR</button>
-                            <input type="number" {...register('quantity')} />
-                            <button onClick={() => }>ADICIONAR</button>
-                            <button title="Remover" onClick={() => handleRemove(item.id)} type="button"><Trash />Remover</button>
-                        </div>
-                    </C.EditItems>
-                </C.InfoCoffeItems>
-            )}
-            <button type="submit">Enviar</button>
+                        <span>R$ {item.price.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                    </C.ItemInfo>
+                    <div>
+                        <C.ControlItemQuantity>
+                            <button type="button" onClick={() => decreaseItemQuantity(item)} title="Diminuir"><Minus size={18}/></button>
+                            {item.quantity}
+                            <button type="button" onClick={() => increaseItemQuantity(item)} title="Aumentar"><Plus size={18} /></button> 
+                        </C.ControlItemQuantity>
+                        <C.ButtonRemove onClick={() => handleRemove(item.id)} type="button"><Trash size={18} />Remover</C.ButtonRemove>
+                    </div>
+                </C.EditItems>
+            </C.InfoCoffeItems>
+
         </C.CoffeItemsCheckoutContainer>
     )
 }

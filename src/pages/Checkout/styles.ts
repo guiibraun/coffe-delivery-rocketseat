@@ -21,6 +21,8 @@ export const CardContainer = styled.div`
    padding: 2rem;
    border-radius: 8px;
 
+
+
 `
 
 export const DeliveryInfo = styled.div`
@@ -58,3 +60,14 @@ export const FormCheckout = styled.form`
    margin-top: 1.5rem;
 `
 
+export const SubmitButton = styled.button`
+   background-color: ${props => props.theme['yellow']};
+   border: 0;
+   color: ${props => props.theme.white};
+   padding: 0.75rem .5rem;
+   width: 100%;
+   border-radius: 8px;
+   text-transform: uppercase;
+
+   cursor: pointer;
+`

@@ -6,6 +6,8 @@ import * as C from './styles'
 import { MapPinLine } from 'phosphor-react'
 import { PrincipalForm } from './components/PrincipalForm'
 import { CoffeItems } from './components/CoffeItems'
+import { useContext } from 'react'
+import { CoffeContext } from '../../contexts/CoffeContext'
 
 type DataProps = zod.infer<typeof checkoutFormValidationSchema>
 
@@ -16,15 +18,16 @@ const checkoutFormValidationSchema = zod.object({
     neighborhood: zod.string(),
     city: zod.string(),
     state: zod.string(),
-    quantity: zod.string()
+/*     quantity: zod.string() */
 })
 
 export function Checkout() {
+    const { coffeCart } = useContext(CoffeContext)
     const newCheckoutForm = useForm<DataProps>({
         resolver: zodResolver(checkoutFormValidationSchema)
     })
 
-    const { register, handleSubmit, reset, control } = newCheckoutForm
+    const { register, handleSubmit, reset} = newCheckoutForm
 
     function onCheckoutSubmit(data: DataProps) {
         console.log(data)
@@ -55,7 +58,10 @@ export function Checkout() {
                     <div>
                         <h2>Cafés selecionados</h2>
                         <C.CardContainer>
-                                <CoffeItems />
+                            {coffeCart.map(item => (
+                                <CoffeItems key={item.id} item={item}/>
+                            ))}
+                            <C.SubmitButton type="submit">Confirmar Pedido</C.SubmitButton>
                         </C.CardContainer>
                     </div>
                     <div>
