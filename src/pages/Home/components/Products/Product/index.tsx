@@ -1,10 +1,11 @@
-import { Minus, Plus, ShoppingCart } from "phosphor-react"
-import { useContext, useState } from "react"
+import { ShoppingCart } from "phosphor-react"
+import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import { ProductsType } from "../../../../../@types/products"
 import { CoffeContext } from "../../../../../contexts/CoffeContext"
 import * as C from './styles'
 import { v4 as uuid } from 'uuid'
+import { ItemsCartQuantity } from "../../../../../components/ItemsCartQuantity"
 
 interface ProductProps {
     coffeItem: ProductsType
@@ -52,6 +53,7 @@ export function Product({ coffeItem }: ProductProps) {
                     <span>R$ </span>{coffeItem.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                 </div>
                 <form onSubmit={handleSubmit(onSubmitForm)}>
+   
                     <input
                         type="number"
                         {...register("coffeQuantity", { valueAsNumber: true })}

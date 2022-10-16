@@ -10,6 +10,9 @@ export interface CartItemsState {
     name: string,
     quantity: number,
     price: number,
+    type?: string[],
+    description?: string,
+
 }
 
 interface CarItemsContextTypes {

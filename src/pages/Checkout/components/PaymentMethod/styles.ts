@@ -1,4 +1,6 @@
 import styled from "styled-components";
 
 
-export const PaymentMethodsContaienr = styled.div``
+export const PaymentMethodsContainer = styled.div`
+    
+`

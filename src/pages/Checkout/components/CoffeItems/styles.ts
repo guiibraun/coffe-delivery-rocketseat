@@ -40,30 +40,6 @@ export const EditItems = styled.div`
         border: 0;
     }
 `
-
-export const ControlItemQuantity = styled.div`
-    background-color: ${props => props.theme['base-button']};
-    border-radius: 6px;;
-    padding: 0.5rem;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    gap: 0.5rem;
-
-    button {
-        background-color: transparent;
-        border: 0;
-
-        cursor: pointer;
-
-        svg {
-            color: ${props => props.theme.purple}
-        }
-    }
-
-`
 export const ButtonRemove = styled.button`
     display: flex;
     justify-content: center;

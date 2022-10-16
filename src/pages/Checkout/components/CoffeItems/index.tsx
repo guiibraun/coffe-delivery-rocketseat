@@ -1,5 +1,6 @@
 import { Minus, Plus, Trash } from 'phosphor-react'
 import { useContext } from 'react'
+import { ItemsCartQuantity } from '../../../../components/ItemsCartQuantity'
 import { CartItemsState, CoffeContext } from '../../../../contexts/CoffeContext'
 import * as C from './styles'
 
@@ -24,11 +25,7 @@ export function CoffeItems({ item }: ItemProps) {
                         <span>R$ {item.price.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                     </C.ItemInfo>
                     <div>
-                        <C.ControlItemQuantity>
-                            <button type="button" onClick={() => decreaseItemQuantity(item)} title="Diminuir"><Minus size={18}/></button>
-                            {item.quantity}
-                            <button type="button" onClick={() => increaseItemQuantity(item)} title="Aumentar"><Plus size={18} /></button> 
-                        </C.ControlItemQuantity>
+                        <ItemsCartQuantity item={item}/>
                         <C.ButtonRemove onClick={() => handleRemove(item.id)} type="button"><Trash size={18} />Remover</C.ButtonRemove>
                     </div>
                 </C.EditItems>
