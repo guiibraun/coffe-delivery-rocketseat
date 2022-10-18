@@ -8,7 +8,8 @@ interface Props {
 }
 
 export function ControlledItemsCartQuantity({ item }: Props) {
-    const { decreaseItemQuantity, increaseItemQuantity } = useContext(CoffeContext)
+    const { decreaseItemQuantity, increaseItemQuantity, addNewCoffeInCart } = useContext(CoffeContext)
+
     return (
         <C.ControlItemQuantity>
             <C.Button type="button" onClick={() => decreaseItemQuantity(item)} title="Diminuir"><Minus size={18} /></C.Button>
