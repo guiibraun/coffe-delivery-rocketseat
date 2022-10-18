@@ -1,7 +1,8 @@
 import * as C from './styles'
 import CoffeMockup from '../../assets/coffe-delivery-mockup.png'
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
-import { Products } from './components/Products'
+import { Product } from './components/Product'
+import { coffeData } from '../../data/coffe'
 
 export function Home() {
     return (
@@ -40,7 +41,14 @@ export function Home() {
                 </C.InfoContainer>
                 <img src={CoffeMockup} alt='' />
             </C.MainContainer>
-            <Products />
+            <C.ProductsContainer>
+                <h2>Nossos cafés</h2>
+                <C.ProductsGrid>
+                    {coffeData.map((coffe) => (
+                        <Product key={coffe.id} coffeItem={coffe} />
+                    ))}
+                </C.ProductsGrid>
+            </C.ProductsContainer>
         </C.HomeContainer>
     )
 }

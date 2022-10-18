@@ -1,21 +1,16 @@
 import * as C from './styles'
 
-export function PaymentMethod(){
+export function PaymentMethod() {
     return (
         <C.PaymentMethodsContainer>
-            <label htmlFor="creditCart">
-                <input type="radio" name="payment" value="credit" />
-                Cartão de crédito
-            </label>
-            <label htmlFor="debitCard">
-                <input type="radio" name="payment" value="debit" />
-                Cartão de débito
-            </label>
+            <input type="radio" name="payment" value="credit" />
+            <label htmlFor="creditCart">Cartão de crédito</label>
 
-            <label htmlFor="cash">
-                <input type="radio" name="payment" value="cash" />
-                Dinheiro
-            </label>
+            <input type="radio" name="payment" value="debit" />
+            <label htmlFor="debitCard">Cartão de débito</label>
+            
+            <input type="radio" name="payment" value="cash" />
+            <label htmlFor="cash">Dinheiro</label>
         </C.PaymentMethodsContainer>
     )
 }

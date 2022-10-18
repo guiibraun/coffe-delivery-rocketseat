@@ -10,16 +10,15 @@ export const ControlItemQuantity = styled.div`
     align-items: center;
     
     gap: 0.5rem;
+`
 
-    button {
-        background-color: transparent;
-        border: 0;
+export const Button = styled.button`
+    background-color: transparent;
+    border: 0;
 
-        cursor: pointer;
+    cursor: pointer;
 
-        svg {
-            color: ${props => props.theme.purple}
-        }
+    svg {
+        color: ${props => props.theme.purple}
     }
-
 `

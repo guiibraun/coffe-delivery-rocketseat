@@ -2,7 +2,7 @@ export interface ProductsType {
     id: string,
     image: string,
     name: string,
-    quantity?: number,
+    quantity: number,
     description: string,
     price: number,
     type: string[]

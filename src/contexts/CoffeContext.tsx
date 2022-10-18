@@ -87,7 +87,6 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
         })
         setCoffeCart(previousCart => previousCart = decreaseCoffeCart)
         item.quantity > 0 ? setCoffeItemCount((previousState) => previousState - 1) : setCoffeItemCount(0)
-        console.log(item)
     }
 
 
@@ -100,7 +99,6 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
         })
         setCoffeCart(previousCart => previousCart = increaseCoffeCart)
         setCoffeItemCount((previousState) => previousState + 1)
-        console.log(item)
     }
 
     function totalItemsPriceWithOutShipping() {

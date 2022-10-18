@@ -30,6 +30,8 @@ export const InfoCoffeItems = styled.div`
 export const EditItems = styled.div`
     gap: .5rem;
 
+
+
     div {
         display: flex;
         gap: .5rem;
@@ -57,6 +59,8 @@ export const ButtonRemove = styled.button`
 
     background-color: ${props => props.theme['base-button']};
 
+    color: ${props => props.theme['base-subtitle']};
+
     svg {
         color: ${props => props.theme.purple};
 
@@ -66,6 +70,8 @@ export const ButtonRemove = styled.button`
 export const ItemInfo = styled.div`
     display: flex;
     justify-content: space-between;
+
+    margin-bottom: 0.5rem;
 
     width: 100%;
 `
