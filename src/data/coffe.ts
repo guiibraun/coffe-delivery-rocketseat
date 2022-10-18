@@ -13,7 +13,7 @@ enum CoffeTypes {
     ESPECIAL = 'Especial'
 }
 
-export const coffeData: ProductsType[] = [
+export const coffeData = [
     {
         id: uuid(),
         image: Arabe,
