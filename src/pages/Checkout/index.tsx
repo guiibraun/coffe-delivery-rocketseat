@@ -10,6 +10,7 @@ import { useContext } from 'react'
 import { CoffeContext } from '../../contexts/CoffeContext'
 import { PaymentMethod } from './components/PaymentMethod'
 import { formatPrice } from '../../helpers/formatPrice'
+import { TotalPrices } from './components/TotalPrices'
 
 type DataProps = zod.infer<typeof checkoutFormValidationSchema>
 
@@ -63,20 +64,7 @@ export function Checkout() {
                             {coffeCart.map(item => (
                                 <CoffeItems key={item.id} item={item}/>
                             ))}
-                            <C.Prices>
-                                <C.BaseItensCheckout>
-                                    <div>Total de itens</div>
-                                    <div>R$ {formatPrice(coffeItemPriceWithOutShipping)}</div>
-                                </C.BaseItensCheckout>
-                                <C.BaseItensCheckout>
-                                    <div>Entrega</div>
-                                    <div>R$ {formatPrice(shipping)}</div>
-                                </C.BaseItensCheckout>
-                                <C.TotalItensPrice>
-                                    <div>Total</div>
-                                    <div>R$ {formatPrice(coffeItemPriceWithShipping)}</div>
-                                </C.TotalItensPrice>
-                            </C.Prices>
+                            <TotalPrices />
                             <C.SubmitButton type="submit">Confirmar Pedido</C.SubmitButton>
                         </C.CardContainer>
                     </div>
