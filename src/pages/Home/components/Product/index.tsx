@@ -20,6 +20,14 @@ export function Product({ coffeItem }: ProductProps) {
 
     const [itemQuantity, setItemQuantity] = useState(quantity)
 
+    function handleIncrease() {
+        setItemQuantity(prevState => prevState + 1)
+    }
+
+    function handleDecrease() {
+        itemQuantity > 0 ? setItemQuantity(prevState => prevState - 1) : setItemQuantity(0)
+    }
+
     const onSubmitForm = () => {
         let newCart = {
             id: coffeItem.id,
@@ -30,14 +38,6 @@ export function Product({ coffeItem }: ProductProps) {
         }
         addNewCoffeInCart(newCart)
         setItemQuantity(0)
-    }
-
-    function handleIncrease() {
-        setItemQuantity(prevState => prevState + 1)
-    }
-
-    function handleDecrease() {
-        itemQuantity > 0 ? setItemQuantity(prevState => prevState - 1) : setItemQuantity(0)
     }
 
     return (
