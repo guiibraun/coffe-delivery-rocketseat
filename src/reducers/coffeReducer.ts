@@ -50,7 +50,7 @@ export function coffeReducer(state: ReducerStateType, action: any) {
         case ActionType.INCREASE_CART: {
             let item = action.payload.item
             let increaseCoffeCart = state.coffeCart.map(coffe => {
-                if (coffe.id === item.id && coffe.quantity > 0) {
+                if (coffe.id === item.id) {
                     return { ...coffe, quantity: item.quantity + 1 }
                 }
                 return coffe
@@ -87,7 +87,7 @@ export function coffeReducer(state: ReducerStateType, action: any) {
             }, 0)
             return { ...state, coffeItemPriceWithOutShipping: totalPrice }
         }
-        break
+            break
         case ActionType.TOTAL_PRICE_WITH_SHIPPING: {
             let totalPrice = state.coffeCart.reduce((acc, item) => {
                 return acc + ((item.price * item.quantity)) + state.shipping
