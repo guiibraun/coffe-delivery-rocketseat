@@ -18,7 +18,7 @@ export const ControlItemQuantity = styled.div`
 
         div {
             background-color: ${props => props.theme['base-button']};
-            padding: 0.5rem;
+            padding: 0.3rem;
             gap: 0.5rem;
 
             display: flex;

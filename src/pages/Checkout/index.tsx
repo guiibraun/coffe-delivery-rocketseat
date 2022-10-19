@@ -20,8 +20,7 @@ const checkoutFormValidationSchema = zod.object({
     number: zod.string(),
     neighborhood: zod.string(),
     city: zod.string(),
-    state: zod.string(),
-/*     quantity: zod.string() */
+    state: zod.string().max(2).min(2),
 })
 
 export function Checkout() {

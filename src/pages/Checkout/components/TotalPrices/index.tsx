@@ -6,6 +6,7 @@ import * as C from './styles'
 
 export function TotalPrices() {
     const {coffeItemPriceWithOutShipping, coffeItemPriceWithShipping, shipping } = useContext(CoffeContext)
+    
     return (
         <C.Prices>
             <C.BaseItensCheckout>
