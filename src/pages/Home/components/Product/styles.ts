@@ -6,14 +6,20 @@ export const FooterGrid = styled.div`
     font-family: 'Baloo 2', sans-serif;
     font-weight: bold;
     font-size: 1.5rem;
-
     gap: .5rem;
+
     span {
         font-family: 'Roboto', sans-serif;
         font-weight: 400;
         font-size: 0.875rem;
     }
     
+    form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+    }
 `
 
 export const Types = styled.div`
