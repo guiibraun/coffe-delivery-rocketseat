@@ -17,7 +17,6 @@ export const FooterGrid = styled.div`
     form {
         display: flex;
         justify-content: center;
-        align-items: center;
         gap: 0.5rem;
     }
 `
@@ -38,11 +37,6 @@ export const Types = styled.div`
         font-size: .675rem;
         font-weight: bold;
     }
-
-`
-
-export const ChangeQuantityButton = styled.button`
-        
 `
 export const SendButton = styled.button`
     background-color: ${props => props.theme['purple-dark']};

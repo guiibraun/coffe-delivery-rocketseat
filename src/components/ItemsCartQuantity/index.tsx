@@ -10,11 +10,9 @@ interface Props {
 export function ItemsCartQuantity({ quantity, handleIncrease, handleDecrese }: Props) {
     return (
         <C.ControlItemQuantity>
-            <div>
-                <C.Button type="button" onClick={handleDecrese} title="Diminuir"><Minus size={18} /></C.Button>
+            <button type="button" onClick={handleDecrese} title="Diminuir"><Minus size={18} /></button>
                 {quantity}
-                <C.Button type="button" onClick={handleIncrease} title="Aumentar"><Plus size={18} /></C.Button>
-            </div>
+            <button type="button" onClick={handleIncrease} title="Aumentar"><Plus size={18} /></button>
         </C.ControlItemQuantity>
     )
 

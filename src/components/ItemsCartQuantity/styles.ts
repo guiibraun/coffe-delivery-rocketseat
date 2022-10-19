@@ -1,29 +1,22 @@
 import styled from 'styled-components'
 
 export const ControlItemQuantity = styled.div`
-    border-radius: 6px;
+
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     font-weight: 400;
 
+    display: flex;
+    align-items: center;
+
+    background-color: ${props => props.theme['base-button']};
     gap: 0.5rem;
 
+    padding: 0.3rem;
 
-    div {
-        padding: 0.3rem;
-        gap: 0.5rem;
+    border-radius: 6px;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        border-radius: 6px;
-
-        background-color: ${props => props.theme['base-button']};
-    }
-`
-
-export const Button = styled.button`
+    button {
         background-color: transparent;
         border: 0;
 
@@ -32,5 +25,6 @@ export const Button = styled.button`
         svg {
             color: ${props => props.theme.purple}
         }
+    }
 `
 
