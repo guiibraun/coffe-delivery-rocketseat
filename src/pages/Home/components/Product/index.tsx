@@ -1,12 +1,12 @@
 import { ShoppingCart } from "phosphor-react"
-import { ProductsType } from "../../../../@types/products"
-import * as C from './styles'
 import { v4 as uuid } from 'uuid'
 import { ItemsCartQuantity } from "../../../../components/ItemsCartQuantity"
 import { formatPrice } from "../../../../helpers/formatPrice"
 import { useContext, useState } from "react"
 import { CartItemsState, CoffeContext } from "../../../../contexts/CoffeContext"
 import { useForm } from "react-hook-form"
+
+import * as C from './styles'
 
 interface ProductProps {
     coffeItem: CartItemsState
