@@ -9,6 +9,8 @@ export const CoffeItemsCheckoutContainer = styled.div`
     gap: 0.5rem;
     display: grid;
     grid-template-columns: 4rem 1fr;
+
+    border-radius: 6px 44px;
     
     img {
         max-width: 4rem;

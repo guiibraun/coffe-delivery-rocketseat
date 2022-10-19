@@ -1,5 +1,6 @@
 import { Trash } from 'phosphor-react'
 import { useContext } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { ItemsCartQuantity } from '../../../../components/ItemsCartQuantity'
 import { CartItemsState, CoffeContext } from '../../../../contexts/CoffeContext'
 import { formatPrice } from '../../../../helpers/formatPrice'

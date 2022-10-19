@@ -1,6 +1,4 @@
 import { v4 as uuid } from 'uuid'
-import { ProductsType } from "../@types/products";
-
 import Arabe from '../assets/coffes/type-arabe.png'
 import Black from '../assets/coffes/type-black.png'
 import ExpressoGelado from '../assets/coffes/type-cafe-gelado.png'

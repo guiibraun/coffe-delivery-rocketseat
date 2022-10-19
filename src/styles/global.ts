@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import backgroundGradient from '../assets/gradiente-background.svg'
 
 export const GlobalStyle = createGlobalStyle`
     * {
@@ -9,13 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        background-color: ${(props) => props.theme.background};
         color: ${(props) => props.theme["base-text"]};
-        -webkit-font-smoothing: antialiased;
-        background-image: url(${backgroundGradient});
-        background-position: top center;
-        background-repeat: no-repeat;
-        background-size: 100% auto;
     }
 
     :focus {

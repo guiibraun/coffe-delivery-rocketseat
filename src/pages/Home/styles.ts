@@ -1,15 +1,25 @@
 import styled from "styled-components";
 
+import backgroundGradient from '../../assets/gradiente-background.svg'
+
 
 export const HomeContainer = styled.div`
     display: flex;
     flex-direction: column;
+    background-image: url(${backgroundGradient});
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
 `
 
 export const MainContainer = styled.div`
     display: flex;
     gap: 3.5rem;
     overflow: hidden;
+
+    max-width: ${props => props.theme['max-width']};
+    margin: 0 auto;
 
     padding: 5.75rem 0;
     flex-wrap: wrap;
@@ -109,6 +119,8 @@ export const IconsSpan = styled.span<IconsColors>`
 
 export const ProductsContainer = styled.div`
     padding-bottom: 5.75rem;
+        max-width: ${props => props.theme['max-width']};
+    margin: 0 auto;
 
     h2 {
         font-size: 2rem;

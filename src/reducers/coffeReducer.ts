@@ -1,5 +1,4 @@
 import { CartItemsState } from "../contexts/CoffeContext"
-import { ItemInfo } from "../pages/Checkout/components/CoffeItems/styles"
 
 interface ReducerStateType {
     coffeCart: CartItemsState[],
@@ -47,6 +46,7 @@ export function coffeReducer(state: ReducerStateType, action: any) {
             }
 
         }
+        break
         case ActionType.INCREASE_CART: {
             let item = action.payload.item
             let increaseCoffeCart = state.coffeCart.map(coffe => {
@@ -61,7 +61,7 @@ export function coffeReducer(state: ReducerStateType, action: any) {
         case ActionType.DECREASE_CART: {
             let item = action.payload.item
             let decreaseCoffeCart = state.coffeCart.map(coffe => {
-                if (coffe.id === item.id && coffe.quantity > 0) {
+                if (coffe.id === item.id && Number(coffe.quantity) > 0) {
                     return { ...coffe, quantity: item.quantity - 1 }
                 }
                 return coffe
@@ -76,21 +76,21 @@ export function coffeReducer(state: ReducerStateType, action: any) {
             break
         case ActionType.CHANGE_TOTAL_CART_QUANTITY: {
             let newCartTotalCount = state.coffeCart.reduce((acc, item) => {
-                return acc + item.quantity
+                return acc + Number(item.quantity)
             }, 0)
             return { ...state, itemsCartQuantity: newCartTotalCount }
         }
             break
         case ActionType.TOTAL_PRICE_WITHOUT_SHIPPING: {
             let totalPrice = state.coffeCart.reduce((acc, item) => {
-                return acc + (item.price * item.quantity)
+                return acc + (item.price * Number(item.quantity))
             }, 0)
             return { ...state, coffeItemPriceWithOutShipping: totalPrice }
         }
             break
         case ActionType.TOTAL_PRICE_WITH_SHIPPING: {
             let totalPrice = state.coffeCart.reduce((acc, item) => {
-                return acc + ((item.price * item.quantity)) + state.shipping
+                return acc + ((item.price * Number(item.quantity))) + state.shipping
             }, 0)
             return { ...state, coffeItemPriceWithShipping: totalPrice }
         }

@@ -18,5 +18,7 @@ export const defaultTheme = {
 
     'background': '#FAFAFA',
     
-    'white': '#FFF'
+    'white': '#FFF',
+
+    'max-width': '73rem',
 }

@@ -4,6 +4,9 @@ export const CheckoutContainer = styled.div`
    display: grid;
    grid-template-columns: 1fr 448px;
    gap: 2rem;
+
+   max-width: ${props => props.theme['max-width']};
+   margin: 0 auto;
    
    & > div {
       display: flex;
@@ -22,34 +25,12 @@ export const CheckoutContainer = styled.div`
 
 export const CardContainer = styled.div`
    background: ${props => props.theme['base-card']};
-   min-height: 20rem;
    padding: 2rem;
    border-radius: 8px;
 
-
-
-`
-
-export const DeliveryInfo = styled.div`
    display: flex;
-   gap: 0.5rem;
-
-   svg {
-      color: ${props => props.theme['yellow-dark']};
-   }
-
-   h5 {
-      font-size: 1rem;
-      color: ${props => props.theme['base-subtitle']}
-   }
-
-   p {
-      font-size: 0.875rem;
-   }
-
-   h5, p {
-      font-family: 'Roboto', sans-serif;
-   }
+   flex-direction: column;
+   row-gap: 1rem;
 
 `
 
@@ -57,7 +38,6 @@ export const FormPrimary = styled.div`
    display: grid;
    grid-template-columns: 1fr;
    gap: 1rem;
-   margin-top: 1.5rem;
 `
 
 export const FormCheckout = styled.form`

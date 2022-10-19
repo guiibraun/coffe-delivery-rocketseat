@@ -3,7 +3,7 @@ import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import * as C from './styles'
-import { MapPinLine } from 'phosphor-react'
+import { CurrencyDollar, MapPinLine } from 'phosphor-react'
 import { PrincipalForm } from './components/PrincipalForm'
 import { CoffeItems } from './components/CoffeItems'
 import { useContext } from 'react'
@@ -11,6 +11,7 @@ import { CoffeContext } from '../../contexts/CoffeContext'
 import { PaymentMethod } from './components/PaymentMethod'
 import { formatPrice } from '../../helpers/formatPrice'
 import { TotalPrices } from './components/TotalPrices'
+import { CartInfo } from './components/CartInfo'
 
 type DataProps = zod.infer<typeof checkoutFormValidationSchema>
 
@@ -21,18 +22,18 @@ const checkoutFormValidationSchema = zod.object({
     neighborhood: zod.string(),
     city: zod.string(),
     state: zod.string().max(2).min(2),
+    payment: zod.string()
 })
 
 export function Checkout() {
-    const { coffeCart, coffeItemPriceWithShipping, coffeItemPriceWithOutShipping, shipping } = useContext(CoffeContext)
+    const { coffeCart, addNewCoffeInCart } = useContext(CoffeContext)
     const newCheckoutForm = useForm<DataProps>({
         resolver: zodResolver(checkoutFormValidationSchema)
     })
 
-    const { register, handleSubmit, reset} = newCheckoutForm
+    const { handleSubmit, reset} = newCheckoutForm
 
     function onCheckoutSubmit(data: DataProps) {
-        console.log(data)
         reset()
     }
 
@@ -43,14 +44,12 @@ export function Checkout() {
                     <div>
                         <h2>Complete seu pedido</h2>
                         <C.CardContainer>
-                            <C.DeliveryInfo>
-                                <MapPinLine size={25} />
-                                <div>
-                                    <h5>Endereço de Entrega</h5>
-                                    <p>Informe o endereço onde deseja receber seu pedido</p>
-                                </div>
-                            </C.DeliveryInfo>
-                            
+                            <CartInfo 
+                                title="Endereço de Entrega" 
+                                paragraph="Informe o endereço onde deseja receber seu pedido" 
+                                icon={<MapPinLine size={25} />}
+                                color='yellow-dark'
+                            />                            
                             <C.FormPrimary>
                                 <PrincipalForm />
                             </C.FormPrimary>
@@ -69,9 +68,14 @@ export function Checkout() {
                     </div>
                     <div>
                         <C.CardContainer>
+                            <CartInfo 
+                                title="Pagamento" 
+                                paragraph="O pagamento é feito na entrega. Escolha a forma que deseja pagar" 
+                                icon={<CurrencyDollar size={25} />} 
+                                color='purple'
+                            />    
                             <PaymentMethod />
                         </C.CardContainer>
-
                     </div>
                 </C.CheckoutContainer>
 

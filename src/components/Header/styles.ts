@@ -7,6 +7,9 @@ export const HeaderContainer = styled.header`
     padding: 2rem 0;
     gap: 1rem;
 
+    max-width: ${props => props.theme['max-width']};
+    margin: 0 auto;
+
     a {
         text-decoration: none;
     }

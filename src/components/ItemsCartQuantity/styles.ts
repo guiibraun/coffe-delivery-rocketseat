@@ -26,5 +26,10 @@ export const ControlItemQuantity = styled.div`
             color: ${props => props.theme.purple}
         }
     }
+
+    input {
+        all: unset;
+    }
 `
+
 
