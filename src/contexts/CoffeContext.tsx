@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
+import { CarItemsContextTypes } from "../@types/cartContext"
 import { ActionType, coffeReducer } from "../reducers/coffeReducer"
 
 interface CoffeContextProviderProps {
@@ -13,20 +14,6 @@ export interface CartItemsState {
     price: number,
     type?: string[],
     description?: string,
-
-}
-
-interface CarItemsContextTypes {
-    coffeCart: CartItemsState[],
-    itemsCartQuantity: number,
-    coffeItemCount: number,
-    coffeItemPriceWithShipping: number,
-    coffeItemPriceWithOutShipping: number,
-    shipping: number,
-    addNewCoffeInCart: (newCart: CartItemsState) => void
-    removeFromCart: (id: string) => void
-    decreaseItemQuantity: (item: CartItemsState) => void
-    increaseItemQuantity: (item: CartItemsState) => void
 }
 
 export const CoffeContext = createContext({} as CarItemsContextTypes)
@@ -84,7 +71,6 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
             }
         })
     }
-
 
     function increaseItemQuantity(item: CartItemsState) {
         dispatch({
