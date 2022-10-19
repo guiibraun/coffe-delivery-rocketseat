@@ -10,7 +10,7 @@ export const ControlItemQuantity = styled.div`
     align-items: center;
 
     background-color: ${props => props.theme['base-button']};
-    gap: 0.5rem;
+    gap: 0.875rem;
 
     padding: 0.3rem;
 
