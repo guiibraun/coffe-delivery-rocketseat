@@ -1,4 +1,5 @@
 import { CartItemsState } from "../contexts/CoffeContext"
+import { DataProps } from "../pages/Checkout"
 
 interface ReducerStateType {
     coffeCart: CartItemsState[],
@@ -6,7 +7,11 @@ interface ReducerStateType {
     itemsCartQuantity: number,
     coffeItemPriceWithOutShipping: number,
     coffeItemPriceWithShipping: number,
-    shipping: number
+    shipping: number,
+    order?: {
+        info: DataProps,
+        coffeCart: CartItemsState[]
+    }
 }
 
 export enum ActionType {
@@ -16,7 +21,8 @@ export enum ActionType {
     REMOVE_FROM_CART = 'REMOVE_FROM_CART',
     CHANGE_TOTAL_CART_QUANTITY = 'CHANGE_TOTAL_CART_QUANTITY',
     TOTAL_PRICE_WITHOUT_SHIPPING = 'TOTAL_PRICE_WITHOUT_SHIPPING',
-    TOTAL_PRICE_WITH_SHIPPING = 'TOTAL_PRICE_WITH_SHIPPING'
+    TOTAL_PRICE_WITH_SHIPPING = 'TOTAL_PRICE_WITH_SHIPPING',
+    ORDER = 'ORDER'
 }
 
 
@@ -24,29 +30,26 @@ export function coffeReducer(state: ReducerStateType, action: any) {
     switch (action.type) {
         case ActionType.ADD_TO_CART: {
             let newCart = action.payload.newCart
-            if (newCart.quantity > 0) {
-                let findItem = state.coffeCart.findIndex(item => item.id === newCart.id)
-                if (findItem > -1) {
-                    let modifyCart = state.coffeCart.map(item => {
-                        if (item.id === newCart.id) {
-                            return { ...item, quantity: item.quantity + newCart.quantity }
-                        }
-                        return item
-                    })
-                    return {
-                        ...state, coffeCart: modifyCart,
-                        coffeItemCount: state.coffeItemCount + 1
+            let findItem = state.coffeCart.findIndex(item => item.id === newCart.id)
+            if (findItem > -1) {
+                let modifyCart = state.coffeCart.map(item => {
+                    if (item.id === newCart.id) {
+                        return { ...item, quantity: item.quantity + newCart.quantity }
                     }
-                } else {
-                    return {
-                        ...state, coffeCart: [...state.coffeCart, newCart],
-                        coffeItemCount: state.coffeItemCount + 1
-                    }
+                    return item
+                })
+                return {
+                    ...state, coffeCart: modifyCart,
+                    coffeItemCount: state.coffeItemCount + 1
+                }
+            } else {
+                return {
+                    ...state, coffeCart: [...state.coffeCart, newCart],
+                    coffeItemCount: state.coffeItemCount + 1
                 }
             }
-
         }
-        break
+            break
         case ActionType.INCREASE_CART: {
             let item = action.payload.item
             let increaseCoffeCart = state.coffeCart.map(coffe => {
@@ -94,6 +97,14 @@ export function coffeReducer(state: ReducerStateType, action: any) {
             }, 0)
             return { ...state, coffeItemPriceWithShipping: totalPrice }
         }
+        break
+        case ActionType.ORDER: 
+            return {
+                ...state, 
+                order: {info: action.payload.data, coffeCart: state.coffeCart},
+                coffeCart: []
+            }
+        break
         default:
             return state
     }

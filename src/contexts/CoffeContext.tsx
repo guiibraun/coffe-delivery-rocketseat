@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
 import { CarItemsContextTypes } from "../@types/cartContext"
+import { DataProps } from "../pages/Checkout"
 import { ActionType, coffeReducer } from "../reducers/coffeReducer"
 
 interface CoffeContextProviderProps {
@@ -28,24 +29,35 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
         coffeItemPriceWithShipping: 0,
     })
 
-    const { coffeCart, coffeItemCount, itemsCartQuantity, coffeItemPriceWithOutShipping, coffeItemPriceWithShipping, shipping } = state
+    const { coffeCart, coffeItemCount, itemsCartQuantity, coffeItemPriceWithOutShipping, coffeItemPriceWithShipping, shipping, order } = state
 
     useEffect(() => {
         changeCartTotalCount()
-    }, [state.coffeCart, coffeItemCount])
+    }, [coffeCart, coffeItemCount])
 
     useEffect(() => {
         totalItemsPriceWithOutShipping()
         totalItemsPriceWithShipping()
     }, [coffeCart])
 
-    function addNewCoffeInCart(newCart: CartItemsState) {
+    function addOrder(data: DataProps) {
         dispatch({
-            type: ActionType.ADD_TO_CART,
+            type: ActionType.ORDER,
             payload: {
-                newCart
+                data
             }
         })
+    }
+
+    function addNewCoffeInCart(newCart: CartItemsState) {
+        if (Number(newCart.quantity) > 0) {
+            dispatch({
+                type: ActionType.ADD_TO_CART,
+                payload: {
+                    newCart
+                }
+            })
+        }
     }
 
     function changeCartTotalCount() {
@@ -99,12 +111,14 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
             itemsCartQuantity,
             coffeItemCount,
             shipping,
+            order,
             coffeItemPriceWithOutShipping,
             coffeItemPriceWithShipping,
             addNewCoffeInCart,
             removeFromCart,
             decreaseItemQuantity,
-            increaseItemQuantity
+            increaseItemQuantity,
+            addOrder
         }}>
             {children}
         </CoffeContext.Provider>

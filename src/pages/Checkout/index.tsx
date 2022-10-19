@@ -9,11 +9,11 @@ import { CoffeItems } from './components/CoffeItems'
 import { useContext } from 'react'
 import { CoffeContext } from '../../contexts/CoffeContext'
 import { PaymentMethod } from './components/PaymentMethod'
-import { formatPrice } from '../../helpers/formatPrice'
 import { TotalPrices } from './components/TotalPrices'
 import { CartInfo } from './components/CartInfo'
+import { Link, useNavigate } from 'react-router-dom'
 
-type DataProps = zod.infer<typeof checkoutFormValidationSchema>
+export type DataProps = zod.infer<typeof checkoutFormValidationSchema>
 
 const checkoutFormValidationSchema = zod.object({
     cep: zod.number(),
@@ -26,14 +26,19 @@ const checkoutFormValidationSchema = zod.object({
 })
 
 export function Checkout() {
-    const { coffeCart, addNewCoffeInCart } = useContext(CoffeContext)
+    const { coffeCart, addOrder } = useContext(CoffeContext)
     const newCheckoutForm = useForm<DataProps>({
         resolver: zodResolver(checkoutFormValidationSchema)
     })
 
-    const { handleSubmit, reset} = newCheckoutForm
+    const navigate = useNavigate()
+
+    const { handleSubmit, reset } = newCheckoutForm
 
     function onCheckoutSubmit(data: DataProps) {
+        addOrder(data)
+        navigate("/sucess",
+        )
         reset()
     }
 
@@ -44,12 +49,12 @@ export function Checkout() {
                     <div>
                         <h2>Complete seu pedido</h2>
                         <C.CardContainer>
-                            <CartInfo 
-                                title="Endereço de Entrega" 
-                                paragraph="Informe o endereço onde deseja receber seu pedido" 
+                            <CartInfo
+                                title="Endereço de Entrega"
+                                paragraph="Informe o endereço onde deseja receber seu pedido"
                                 icon={<MapPinLine size={25} />}
                                 color='yellow-dark'
-                            />                            
+                            />
                             <C.FormPrimary>
                                 <PrincipalForm />
                             </C.FormPrimary>
@@ -60,27 +65,29 @@ export function Checkout() {
                         <h2>Cafés selecionados</h2>
                         <C.CardContainer>
                             {coffeCart.map(item => (
-                                <CoffeItems key={item.id} item={item}/>
+                                <CoffeItems key={item.id} item={item} />
                             ))}
                             <TotalPrices />
+
                             <C.SubmitButton type="submit">Confirmar Pedido</C.SubmitButton>
+
                         </C.CardContainer>
                     </div>
                     <div>
                         <C.CardContainer>
-                            <CartInfo 
-                                title="Pagamento" 
-                                paragraph="O pagamento é feito na entrega. Escolha a forma que deseja pagar" 
-                                icon={<CurrencyDollar size={25} />} 
+                            <CartInfo
+                                title="Pagamento"
+                                paragraph="O pagamento é feito na entrega. Escolha a forma que deseja pagar"
+                                icon={<CurrencyDollar size={25} />}
                                 color='purple'
-                            />    
+                            />
                             <PaymentMethod />
                         </C.CardContainer>
                     </div>
                 </C.CheckoutContainer>
 
             </C.FormCheckout >
-        </FormProvider>
+        </FormProvider >
     )
 
 }
