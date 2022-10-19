@@ -38,3 +38,13 @@ export const Types = styled.div`
 export const ChangeQuantityButton = styled.button`
         
 `
+export const SendButton = styled.button`
+    background-color: ${props => props.theme['purple-dark']};
+    color: ${props => props.theme.white};
+    border: 0;
+    padding: 0.5rem;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+`

@@ -1,6 +1,6 @@
 import { Trash } from 'phosphor-react'
 import { useContext } from 'react'
-import { ControlledItemsCartQuantity } from '../../../../components/ControlledItemsCartQuantity'
+import { ItemsCartQuantity } from '../../../../components/ItemsCartQuantity'
 import { CartItemsState, CoffeContext } from '../../../../contexts/CoffeContext'
 import { formatPrice } from '../../../../helpers/formatPrice'
 import * as C from './styles'
@@ -10,11 +10,17 @@ interface ItemProps {
 }
 
 export function CoffeItems({ item }: ItemProps) {
+    const { decreaseItemQuantity, increaseItemQuantity } = useContext(CoffeContext)
     const { removeFromCart } = useContext(CoffeContext)
 
-    function handleRemove(id: string) {
-        removeFromCart(id)
+    function handleIncrease() {
+        increaseItemQuantity(item)  
     }
+
+    function handleDecrease() {
+        decreaseItemQuantity(item)
+    }
+
 
     return (
         <C.CoffeItemsCheckoutContainer>
@@ -26,8 +32,8 @@ export function CoffeItems({ item }: ItemProps) {
                         <span>R$ {formatPrice(item.price)}</span>
                     </C.ItemInfo>
                     <div>
-                        <ControlledItemsCartQuantity item={item} />
-                        <C.ButtonRemove onClick={() => handleRemove(item.id)} type="button"><Trash size={18} />Remover</C.ButtonRemove>
+                        <ItemsCartQuantity quantity={item.quantity} handleIncrease={handleIncrease} handleDecrese={handleDecrease} />
+                        <C.ButtonRemove onClick={() => removeFromCart(item.id)} type="button"><Trash size={18} />Remover</C.ButtonRemove>
                     </div>
                 </C.EditItems>
             </C.InfoCoffeItems>
