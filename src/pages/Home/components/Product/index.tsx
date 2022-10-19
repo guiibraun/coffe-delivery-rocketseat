@@ -3,6 +3,7 @@ import { ProductsType } from "../../../../@types/products"
 import * as C from './styles'
 import { v4 as uuid } from 'uuid'
 import { UnControlledItemsCartQuantity } from "../../../../components/UnControlledItemsCartQuantity"
+import { formatPrice } from "../../../../helpers/formatPrice"
 
 interface ProductProps {
     coffeItem: ProductsType
@@ -23,7 +24,7 @@ export function Product({ coffeItem }: ProductProps) {
 
             <C.FooterGrid>
                 <div>
-                    <span>R$ </span>{coffeItem.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                    <span>R$ </span>{formatPrice(coffeItem.price)}
                 </div>
                 <UnControlledItemsCartQuantity item={coffeItem} />
             </C.FooterGrid>

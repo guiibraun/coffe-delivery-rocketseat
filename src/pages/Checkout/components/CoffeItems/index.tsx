@@ -2,6 +2,7 @@ import { Trash } from 'phosphor-react'
 import { useContext } from 'react'
 import { ControlledItemsCartQuantity } from '../../../../components/ControlledItemsCartQuantity'
 import { CartItemsState, CoffeContext } from '../../../../contexts/CoffeContext'
+import { formatPrice } from '../../../../helpers/formatPrice'
 import * as C from './styles'
 
 interface ItemProps {
@@ -22,7 +23,7 @@ export function CoffeItems({ item }: ItemProps) {
                 <C.EditItems>
                     <C.ItemInfo>
                         <h5>{item.name}</h5>
-                        <span>R$ {item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                        <span>R$ {formatPrice(item.price)}</span>
                     </C.ItemInfo>
                     <div>
                         <ControlledItemsCartQuantity item={item} />

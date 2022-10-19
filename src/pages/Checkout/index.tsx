@@ -9,6 +9,7 @@ import { CoffeItems } from './components/CoffeItems'
 import { useContext } from 'react'
 import { CoffeContext } from '../../contexts/CoffeContext'
 import { PaymentMethod } from './components/PaymentMethod'
+import { formatPrice } from '../../helpers/formatPrice'
 
 type DataProps = zod.infer<typeof checkoutFormValidationSchema>
 
@@ -65,15 +66,15 @@ export function Checkout() {
                             <C.Prices>
                                 <C.BaseItensCheckout>
                                     <div>Total de itens</div>
-                                    <div>R$ {coffeItemPriceWithOutShipping.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
+                                    <div>R$ {formatPrice(coffeItemPriceWithOutShipping)}</div>
                                 </C.BaseItensCheckout>
                                 <C.BaseItensCheckout>
                                     <div>Entrega</div>
-                                    <div>R$ {shipping.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                                    <div>R$ {formatPrice(shipping)}</div>
                                 </C.BaseItensCheckout>
                                 <C.TotalItensPrice>
                                     <div>Total</div>
-                                    <div>R$ {coffeItemPriceWithShipping.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
+                                    <div>R$ {formatPrice(coffeItemPriceWithShipping)}</div>
                                 </C.TotalItensPrice>
                             </C.Prices>
                             <C.SubmitButton type="submit">Confirmar Pedido</C.SubmitButton>

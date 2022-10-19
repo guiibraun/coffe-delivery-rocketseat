@@ -3,14 +3,21 @@ import { ItemInfo } from "../pages/Checkout/components/CoffeItems/styles"
 
 interface ReducerStateType {
     coffeCart: CartItemsState[],
-    coffeItemCount: number
+    coffeItemCount: number,
+    itemsCartQuantity: number,
+    coffeItemPriceWithOutShipping: number,
+    coffeItemPriceWithShipping: number,
+    shipping: number
 }
 
 export enum ActionType {
     INCREASE_CART = 'INCREASE_CART',
     DECREASE_CART = 'DECREASE_CART',
     ADD_TO_CART = 'ADD_TO_CART',
-    REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+    REMOVE_FROM_CART = 'REMOVE_FROM_CART',
+    CHANGE_TOTAL_CART_QUANTITY = 'CHANGE_TOTAL_CART_QUANTITY',
+    TOTAL_PRICE_WITHOUT_SHIPPING = 'TOTAL_PRICE_WITHOUT_SHIPPING',
+    TOTAL_PRICE_WITH_SHIPPING = 'TOTAL_PRICE_WITH_SHIPPING'
 }
 
 
@@ -27,16 +34,19 @@ export function coffeReducer(state: ReducerStateType, action: any) {
                         }
                         return item
                     })
-                    return { ...state, coffeCart: modifyCart, coffeItemCount: state.coffeItemCount + 1 }
+                    return {
+                        ...state, coffeCart: modifyCart,
+                        coffeItemCount: state.coffeItemCount + 1
+                    }
                 } else {
-                    return { ...state, coffeCart: [...state.coffeCart, newCart],
+                    return {
+                        ...state, coffeCart: [...state.coffeCart, newCart],
                         coffeItemCount: state.coffeItemCount + 1
                     }
                 }
             }
-            
-        }
 
+        }
         case ActionType.INCREASE_CART: {
             let item = action.payload.item
             let increaseCoffeCart = state.coffeCart.map(coffe => {
@@ -56,11 +66,33 @@ export function coffeReducer(state: ReducerStateType, action: any) {
                 }
                 return coffe
             })
-            return { ...state, coffeCart: decreaseCoffeCart }
+            return { ...state, coffeCart: decreaseCoffeCart, coffeItemCount: state.coffeItemCount - 1 }
         }
             break
         case ActionType.REMOVE_FROM_CART: {
-            return state
+            let cartItemsWhitoutADeletedItem = state.coffeCart.filter((item) => item.id !== action.payload)
+            return { ...state, coffeCart: cartItemsWhitoutADeletedItem }
+        }
+            break
+        case ActionType.CHANGE_TOTAL_CART_QUANTITY: {
+            let newCartTotalCount = state.coffeCart.reduce((acc, item) => {
+                return acc + item.quantity
+            }, 0)
+            return { ...state, itemsCartQuantity: newCartTotalCount }
+        }
+            break
+        case ActionType.TOTAL_PRICE_WITHOUT_SHIPPING: {
+            let totalPrice = state.coffeCart.reduce((acc, item) => {
+                return acc + (item.price * item.quantity)
+            }, 0)
+            return { ...state, coffeItemPriceWithOutShipping: totalPrice }
+        }
+        break
+        case ActionType.TOTAL_PRICE_WITH_SHIPPING: {
+            let totalPrice = state.coffeCart.reduce((acc, item) => {
+                return acc + ((item.price * item.quantity)) + state.shipping
+            }, 0)
+            return { ...state, coffeItemPriceWithShipping: totalPrice }
         }
         default:
             return state

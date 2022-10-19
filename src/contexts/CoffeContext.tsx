@@ -34,18 +34,14 @@ export const CoffeContext = createContext({} as CarItemsContextTypes)
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
     const [state, dispatch] = useReducer(coffeReducer, {
         coffeCart: [],
-        coffeItemCount: 0
+        coffeItemCount: 0,
+        itemsCartQuantity: 0,
+        coffeItemPriceWithOutShipping: 0,
+        shipping: 3.5,
+        coffeItemPriceWithShipping: 0,
     })
 
-    //const [coffeCart, setCoffeCart] = useState<CartItemsState[]>([])
-    const [itemsCartQuantity, setItemsCartQuantity] = useState(0)
-    const [coffeItemCount, setCoffeItemCount] = useState(0)
-    const [coffeItemPriceWithOutShipping, setcoffeItemPriceWithOutShipping] = useState(0)
-    const [coffeItemPriceWithShipping, setcoffeItemPriceWithShipping] = useState(0)
-
-    const shipping = 3.5
-
-    const {coffeCart} = state
+    const { coffeCart, coffeItemCount, itemsCartQuantity, coffeItemPriceWithOutShipping, coffeItemPriceWithShipping, shipping } = state
 
     useEffect(() => {
         changeCartTotalCount()
@@ -66,15 +62,18 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
     }
 
     function changeCartTotalCount() {
-        let newCartTotalCount = coffeCart.reduce((acc, item) => {
-            return acc + item.quantity
-        }, 0)
-        setItemsCartQuantity(newCartTotalCount)
+        dispatch({
+            type: ActionType.CHANGE_TOTAL_CART_QUANTITY
+        })
+
     }
 
     function removeFromCart(id: string) {
-        let cartItemsWhitoutADeletedItem = [...coffeCart].filter((item) => item.id !== id)
-        //setCoffeCart(cartItemsWhitoutADeletedItem)
+        dispatch({
+            type: ActionType.REMOVE_FROM_CART,
+            payload: id
+
+        })
     }
 
     function decreaseItemQuantity(item: CartItemsState) {
@@ -84,8 +83,6 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
                 item
             }
         })
-
-        item.quantity > 0 ? setCoffeItemCount((previousState) => previousState - 1) : setCoffeItemCount(0)
     }
 
 
@@ -96,21 +93,18 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
                 item
             }
         })
-        setCoffeItemCount((previousState) => previousState + 1)
     }
 
     function totalItemsPriceWithOutShipping() {
-        let totalPrice = coffeCart.reduce((acc, item) => {
-            return acc + (item.price * item.quantity)
-        }, 0)
-        setcoffeItemPriceWithOutShipping(totalPrice)
+        dispatch({
+            type: ActionType.TOTAL_PRICE_WITHOUT_SHIPPING
+        })
     }
 
     function totalItemsPriceWithShipping() {
-        let totalPrice = coffeCart.reduce((acc, item) => {
-            return acc + ((item.price * item.quantity)) + shipping
-        }, 0)
-        setcoffeItemPriceWithShipping(totalPrice)
+        dispatch({
+            type: ActionType.TOTAL_PRICE_WITH_SHIPPING
+        })
     }
 
     return (
