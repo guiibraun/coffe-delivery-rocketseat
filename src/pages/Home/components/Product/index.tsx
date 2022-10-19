@@ -5,11 +5,11 @@ import { v4 as uuid } from 'uuid'
 import { ItemsCartQuantity } from "../../../../components/ItemsCartQuantity"
 import { formatPrice } from "../../../../helpers/formatPrice"
 import { useContext, useState } from "react"
-import { CoffeContext } from "../../../../contexts/CoffeContext"
+import { CartItemsState, CoffeContext } from "../../../../contexts/CoffeContext"
 import { useForm } from "react-hook-form"
 
 interface ProductProps {
-    coffeItem: ProductsType
+    coffeItem: CartItemsState
 }
 
 
@@ -44,7 +44,7 @@ export function Product({ coffeItem }: ProductProps) {
         <div key={coffeItem.id}>
             <img src={coffeItem.image} alt='' />
             <C.Types>
-                {coffeItem.type.map(types => (
+                {coffeItem?.type?.map(types => (
                     <span key={uuid()}>{types}</span>
                 ))}
             </C.Types>
