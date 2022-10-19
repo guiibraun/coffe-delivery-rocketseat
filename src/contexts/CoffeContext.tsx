@@ -10,7 +10,7 @@ export interface CartItemsState {
     id: string,
     image: string,
     name: string,
-    quantity: number,
+    quantity?: number,
     price: number,
     type?: string[],
     description?: string,

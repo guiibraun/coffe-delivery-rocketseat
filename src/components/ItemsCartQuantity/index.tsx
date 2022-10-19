@@ -2,7 +2,7 @@ import { Minus, Plus } from 'phosphor-react'
 import * as C from './styles'
 
 interface Props {
-    quantity: number,
+    quantity?: number,
     handleIncrease: () => void,
     handleDecrese: () => void
 }

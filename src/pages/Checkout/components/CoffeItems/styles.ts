@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const CoffeItemsCheckoutContainer = styled.div`
-    border-width: 1px 0;
+    border-width: 0 0 1px 0;
     border-color: ${props => props.theme['base-button']};
     border-style: solid;
     padding: 1rem 0;
@@ -40,7 +40,6 @@ export const EditItems = styled.div`
 
 export const ItemInfo = styled.div`
     display: flex;
-    margin-bottom: 0.5rem;
     justify-content: space-between;
 
     span {
@@ -70,3 +69,4 @@ export const ButtonRemove = styled.button`
 
     }
 `
+

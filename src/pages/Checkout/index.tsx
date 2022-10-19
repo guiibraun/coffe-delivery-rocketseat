@@ -50,7 +50,7 @@ export function Checkout() {
                                     <p>Informe o endereço onde deseja receber seu pedido</p>
                                 </div>
                             </C.DeliveryInfo>
-.
+                            
                             <C.FormPrimary>
                                 <PrincipalForm />
                             </C.FormPrimary>
