@@ -3,11 +3,19 @@ import styled from "styled-components";
 
 export const SucessContainer = styled.div`
     max-width: ${props => props.theme["max-width"]};
+    width: 100%;
     margin: 0 auto;
     display: grid;
+    overflow: hidden;
 
+    padding: 5rem 0;
     gap: 6rem;
     grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 767px){
+        grid-template-columns: 1fr;
+        padding: 2rem 0;
+    }
 `
 
 export const OrderInfo = styled.div`
@@ -26,14 +34,16 @@ export const OrderInfo = styled.div`
     p {
         font-size: 1.25rem;
     }
+
+    @media (max-width: 767px){
+            row-gap: 2rem;
+    }
 `
 
-export const Image = styled.div``
-
-export const Informations = styled.div`
-    border: 1px solid ${props => props.theme["purple-dark"]};
-    border-radius: 6px 36px;
-    padding: 2rem;
-    box-sizing: border-box;
-
+export const Image = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
 `
+

@@ -22,4 +22,8 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 1rem;
         -webkit-font-smoothing: antialiased;
     }
+
+    button {
+        transition: all .2s ease;
+    }
 `

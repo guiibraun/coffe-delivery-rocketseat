@@ -3,11 +3,11 @@ import { CoffeContext } from "../../contexts/CoffeContext"
 import MotoboySvg from '../../assets/motoboy.svg'
 
 import * as C from './styles'
-import { OrderInformations } from "./components/OrderInformations"
+import { MapPin } from "phosphor-react"
+import { OrderInfo } from "./components/OrderInfo"
+
 
 export function Sucess(){
-    const {order} = useContext(CoffeContext)
-
     return (
         <C.SucessContainer>
             <C.OrderInfo>
@@ -15,12 +15,7 @@ export function Sucess(){
                     <h2>Uhu! Pedido confirmado</h2>
                     <p>Agora é só aguardar que logo o café chegará até você</p>
                 </div>
-
-                <C.Informations>
-                    <OrderInformations />
-                    <OrderInformations />
-                    <OrderInformations />
-                </C.Informations>
+                <OrderInfo />
             </C.OrderInfo>
             <C.Image>
                 <img alt="" src={MotoboySvg} />

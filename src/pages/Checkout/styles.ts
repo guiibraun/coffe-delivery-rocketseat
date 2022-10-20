@@ -56,5 +56,10 @@ export const SubmitButton = styled.button`
    border-radius: 8px;
    text-transform: uppercase;
 
+   
    cursor: pointer;
+
+   &:hover {
+      background-color: ${props => props.theme['yellow-dark']};
+   }
 `
