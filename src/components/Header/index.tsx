@@ -5,8 +5,8 @@ import { useContext } from 'react'
 import { CoffeContext } from '../../contexts/CoffeContext'
 import { Link } from 'react-router-dom'
 
-export function Header(){
-    const {itemsCartQuantity} = useContext(CoffeContext)
+export function Header() {
+    const { itemsCartQuantity, order } = useContext(CoffeContext)
 
     return (
         <C.HeaderContainer>
@@ -14,13 +14,16 @@ export function Header(){
                 <img src={logoCoffeDelivery} alt='' />
             </Link>
             <C.CartAndCityContainer>
-                <C.CityAndState>
-                    <MapPin size={22} weight="fill" />
-                    <span>Porto Alegre, RS</span>
-                </C.CityAndState>
+                {order && 
+                    <C.CityAndState>
+                        <MapPin size={22} weight="fill" />
+                        <span>{order?.info?.city}, {order?.info?.state}</span>
+                    </C.CityAndState>
+                }
+
                 <Link to="/checkout">
                     <C.ShoppingCartContainer>
-                        {itemsCartQuantity > 0 && 
+                        {itemsCartQuantity > 0 &&
                             <span>{itemsCartQuantity}</span>
                         }
                         <ShoppingCart size={22} weight="fill" />

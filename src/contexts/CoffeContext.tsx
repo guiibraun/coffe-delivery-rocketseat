@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
 import { CarItemsContextTypes } from "../@types/cartContext"
 import { DataProps } from "../pages/Checkout"
-import { ActionType, coffeReducer } from "../reducers/coffeReducer"
+import { ActionType, coffeReducer, ReducerStateType } from "../reducers/coffeReducer"
 
 interface CoffeContextProviderProps {
     children: ReactNode
@@ -17,19 +17,31 @@ export interface CartItemsState {
     description?: string,
 }
 
+const storedOrderAsJson = localStorage.getItem('@coffe-delivery:order-state-1.0.0')
+
+const initialState: ReducerStateType = {
+    coffeCart: [],
+    coffeItemCount: 0,
+    itemsCartQuantity: 0,
+    coffeItemPriceWithOutShipping: 0,
+    shipping: 3.5,
+    coffeItemPriceWithShipping: 0,
+    order: storedOrderAsJson ? JSON.parse(storedOrderAsJson) : undefined
+}
+
 export const CoffeContext = createContext({} as CarItemsContextTypes)
 
 export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
-    const [state, dispatch] = useReducer(coffeReducer, {
-        coffeCart: [],
-        coffeItemCount: 0,
-        itemsCartQuantity: 0,
-        coffeItemPriceWithOutShipping: 0,
-        shipping: 3.5,
-        coffeItemPriceWithShipping: 0,
-    })
+    const [state, dispatch] = useReducer(coffeReducer, initialState)
 
     const { coffeCart, coffeItemCount, itemsCartQuantity, coffeItemPriceWithOutShipping, coffeItemPriceWithShipping, shipping, order } = state
+
+    useEffect(() => {
+        if(order){
+            const stateJSON = JSON.stringify(order)
+            localStorage.setItem('@coffe-delivery:order-state-1.0.0', stateJSON)
+        }
+    }, [order])
 
     useEffect(() => {
         changeCartTotalCount()
@@ -39,6 +51,7 @@ export function CoffeContextProvider({ children }: CoffeContextProviderProps) {
         totalItemsPriceWithOutShipping()
         totalItemsPriceWithShipping()
     }, [coffeCart])
+
 
     function addOrder(data: DataProps) {
         dispatch({

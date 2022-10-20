@@ -2,8 +2,8 @@ import { useFormContext } from "react-hook-form"
 
 import * as C from "./styles"
 
-export function PrincipalForm(){
-   const {register} = useFormContext()
+export function PrincipalForm() {
+   const { register } = useFormContext()
 
    return (
       <>

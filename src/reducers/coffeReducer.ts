@@ -1,7 +1,7 @@
 import { CartItemsState } from "../contexts/CoffeContext"
 import { DataProps } from "../pages/Checkout"
 
-interface ReducerStateType {
+export interface ReducerStateType {
     coffeCart: CartItemsState[],
     coffeItemCount: number,
     itemsCartQuantity: number,
@@ -9,8 +9,8 @@ interface ReducerStateType {
     coffeItemPriceWithShipping: number,
     shipping: number,
     order?: {
-        info: DataProps,
-        coffeCart: CartItemsState[]
+        info?: DataProps, 
+        coffeCart?: CartItemsState[]
     }
 }
 
@@ -97,14 +97,14 @@ export function coffeReducer(state: ReducerStateType, action: any) {
             }, 0)
             return { ...state, coffeItemPriceWithShipping: totalPrice }
         }
-        break
-        case ActionType.ORDER: 
+            break
+        case ActionType.ORDER:
             return {
-                ...state, 
-                order: {info: action.payload.data, coffeCart: state.coffeCart},
+                ...state,
+                order: { info: action.payload.data, coffeCart: state.coffeCart },
                 coffeCart: []
             }
-        break
+            break
         default:
             return state
     }

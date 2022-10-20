@@ -1,11 +1,11 @@
-import { Clock, CurrencyDollar, MapPin, Timer } from "phosphor-react";
+import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
 import { useContext } from "react";
 import { CoffeContext } from "../../../../contexts/CoffeContext";
 
 
 import * as C from './styles'
 
-export function OrderInfo() {
+export function OrderInfo(){
     const { order } = useContext(CoffeContext)
     return (
         <C.Informations>
@@ -33,7 +33,7 @@ export function OrderInfo() {
                 </C.IconsSpan>
                 <C.InfoText>
                     <p>Pagamento na entrega</p>
-
+                    
                     {order?.info.payment === "credit" &&
                         <p><strong>Cartão de crédito</strong></p>
                     }

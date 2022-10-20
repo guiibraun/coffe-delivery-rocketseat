@@ -16,7 +16,6 @@ export const HeaderContainer = styled.header`
 `
 
 export const CartAndCityContainer = styled.div`
-    width: 13rem;
     display: flex;
     justify-content: space-between;
     gap: .75rem;
